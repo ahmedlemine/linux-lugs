@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    {% if title %}
+        <title>Linux Lugs - {{ title }}</title>
+    
+    {% else %}
+        <title>Linux Lugs</title>
+    {% endif %}
+    <body>
+        {% for lug in lugs %}
+            <h1>{{lug.name}}</h1>
+            <p>{{lug.city}}, {{lug.country}}</p>
+            <small>Added by: {{lug.added_by }} | on {{lug.date_added}}</small>
+            <p>{{lug.description}}</p>
+
+        {% endfor %}
+    </body>
+</head>
+</html>

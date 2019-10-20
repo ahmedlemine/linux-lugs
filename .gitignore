@@ -1,0 +1,9 @@
+*.sqlite*
+settings.*
+*.pyc
+/env/
+blog/settings.py
+blog/__pycache__/
+django_blog/__pycache__/
+media/
+/static/
