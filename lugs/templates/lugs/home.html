@@ -1,21 +1,18 @@
-<!DOCTYPE html>
+{% extends "lugs/base.html" %}
+{% block content %}
+{% for lug in lugs %}
+<! TO DO : replace article with lug>
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{ lug.added_by }}</a>
+            <small class="text-muted">{{ lug.date_added }}</small>
+        </div>
+        <p>{{lug.city}}, {{lug.country}}</p>
+        <h2><a class="article-title" href="#">{{ lug.name }}</a></h2>
+        <p class="article-content">{{ lug.description }}</p>
+    </div>
+</article>
 
-<html>
-<head>
-    {% if title %}
-        <title>Linux Lugs - {{ title }}</title>
-    
-    {% else %}
-        <title>Linux Lugs</title>
-    {% endif %}
-    <body>
-        {% for lug in lugs %}
-            <h1>{{lug.name}}</h1>
-            <p>{{lug.city}}, {{lug.country}}</p>
-            <small>Added by: {{lug.added_by }} | on {{lug.date_added}}</small>
-            <p>{{lug.description}}</p>
-
-        {% endfor %}
-    </body>
-</head>
-</html>
+{% endfor %}
+{% endblock content %}
