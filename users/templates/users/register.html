@@ -1,0 +1,13 @@
+{% extends "lugs/base.html" %}
+{% block content %}
+    <div class="content-section">
+        <form action="" methon="POST">
+            {% csrf_token %}
+            <fieldset class ="form-group">
+                <legend class="border-bottom mb-4">Join Linux LUGs</legend>
+                {{ form }}
+            </fieldset>
+            
+        </form>
+    </div>
+{% endblock content %}

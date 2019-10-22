@@ -19,3 +19,6 @@ class Lug(models.Model):
     donate_link = models.URLField()
     added_by = models.ForeignKey(User, on_delete=models.CASCADE)
     date_added = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.name

@@ -6,9 +6,9 @@
     <div class="media-body">
         <div class="article-metadata">
             <a class="mr-2" href="#">{{ lug.added_by }}</a>
-            <small class="text-muted">{{ lug.date_added }}</small>
+            <small class="text-muted">{{ lug.date_added|date:"F d, Y" }}</small>
         </div>
-        <p>{{lug.city}}, {{lug.country}}</p>
+        <p>{{lug.city}}, {{ lug.country }}</p>
         <h2><a class="article-title" href="#">{{ lug.name }}</a></h2>
         <p class="article-content">{{ lug.description }}</p>
     </div>
