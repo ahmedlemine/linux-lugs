@@ -8,7 +8,7 @@
         <div class="article-metadata">
             <a class="mr-2" href="#">{{ lug.city }}, {{ lug.country }} </a>
         </div>
-        <h2><a class="article-title" href="#">{{ lug.name }}</a></h2>
+        <h2><a class="article-title" href="{% url 'lug-detail' lug.id %}">{{ lug.name }}</a></h2>
         <p class="article-content">{{ lug.description }}</p>
         <div>
                 <a class="mr-2" href="#">{{ lug.added_by }}</a>
