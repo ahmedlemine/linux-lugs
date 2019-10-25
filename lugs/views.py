@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.views.generic import (ListView,
                                   DetailView,
-                                  CreateView
+                                  CreateView,
+                                  UpdateView,
+                                  DeleteView
                                   )
 from .models import Lug
 
@@ -16,18 +20,54 @@ class LugListView(ListView):
     model = Lug
     template_name = 'lugs/home.html'
     context_object_name = 'lugs'
-    oerdering = ['-date_added']
+    ordering = ['-date_added']
+    paginate_by = 2
+
+class LugsByUserListView(ListView):
+    model = Lug
+    template_name = 'lugs/lugs_by_user.html'
+    context_object_name = 'lugs'
+    paginate_by = 2
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Lug.objects.filter(added_by=user).order_by('-date_added')
 
 class LugDetailView(DetailView):
     model = Lug
 
-class LugCreateView(CreateView):
+class LugCreateView(LoginRequiredMixin, CreateView):
+    # TODO add a test_func to limit user's LUG to 3
     model = Lug
     fields = ['name', 'country', 'province', 'city', 'description', 'website', 'contact_person', 'contact_info', 'donate_link']
 
     def form_valid(self, form):
         form.instance.added_by = self.request.user
         return super().form_valid(form)
+
+class LugUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Lug
+    fields = ['name', 'country', 'province', 'city', 'description', 'website', 'contact_person', 'contact_info', 'donate_link']
+
+    def form_valid(self, form):
+        form.instance.added_by = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        lug = self.get_object()
+        if self.request.user == lug.added_by:
+            return True
+        return False
+
+class LugDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Lug
+    success_url = '/'
+    #TODO add a deletion success message
+    def test_func(self):
+        lug = self.get_object()
+        if self.request.user == lug.added_by:
+            return True
+        return False
 
 def about(request):
     return render(request, 'lugs/about.html', {'title': 'About'})

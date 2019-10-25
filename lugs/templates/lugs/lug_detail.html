@@ -7,14 +7,20 @@ change object to lug , also in views-->
     <div class="media-body">
         <div class="article-metadata">
             <a class="mr-2" href="#">{{ object.city }}, {{ object.country }} </a>
+            {% if object.added_by == user %}
+            <div>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'lug-update' object.id %}">Update</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'lug-delete' object.id %}">Delete</a>
+            </div>
+            {% endif %}
         </div>
         <h2 class="article-title">{{ object.name }}</h2>
-        
+
         <p class="article-content">{{ object.description }}</p>
-            <div>
-                <a class="mr-2" href="#">{{ object.added_by }}</a>
-                <small class="text-muted">{{ object.date_added|date:"F d, Y" }}</small>
-            </div>
+        <div>
+            <a class="mr-2" href="{% url 'lugs-by-user' object.added_by.username %}">{{ object.added_by }}</a>
+            <small class="text-muted">{{ object.date_added|date:"F d, Y" }}</small>
+        </div>
     </div>
 </article>
 {% endblock content %}
