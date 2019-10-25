@@ -39,7 +39,7 @@ class LugDetailView(DetailView):
 class LugCreateView(LoginRequiredMixin, CreateView):
     # TODO add a test_func to limit user's LUG to 3
     model = Lug
-    fields = ['name', 'country', 'province', 'city', 'description', 'website', 'contact_person', 'contact_info', 'donate_link']
+    fields = ['name', 'country', 'province', 'city', 'description', 'cover_image', 'website', 'contact_person', 'contact_info', 'donate_link']
 
     def form_valid(self, form):
         form.instance.added_by = self.request.user
@@ -47,7 +47,7 @@ class LugCreateView(LoginRequiredMixin, CreateView):
 
 class LugUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Lug
-    fields = ['name', 'country', 'province', 'city', 'description', 'website', 'contact_person', 'contact_info', 'donate_link']
+    fields = ['name', 'country', 'province', 'city', 'description', 'cover_image', 'website', 'contact_person', 'contact_info', 'donate_link']
 
     def form_valid(self, form):
         form.instance.added_by = self.request.user

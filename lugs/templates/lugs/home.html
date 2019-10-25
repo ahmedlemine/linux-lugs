@@ -3,7 +3,7 @@
 {% for lug in lugs %}
 <!-- TO DO : replace article with lug -->
 <article class="media content-section">
-    <img class="article-img" src="{{ lug.added_by.profile.image.url }}" alt="">
+    <img class="article-img" src="{{ lug.cover_image.url }}" alt="">
     <div class="media-body">
         <div class="article-metadata">
             <a class="mr-2" href="#">{{ lug.city }}, {{ lug.country }} </a>
