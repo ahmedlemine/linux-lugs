@@ -4,13 +4,15 @@ from .views import (LugListView,
                     LugCreateView,
                     LugUpdateView,
                     LugDeleteView,
-                    LugsByUserListView
+                    LugsByUserListView,
+                    MyLugsListView
                     )
 from . import views
 
 urlpatterns = [
     path('', LugListView.as_view(), name='lugs-home'),
     path('user/<str:username>/', LugsByUserListView.as_view(), name='lugs-by-user'),
+    path('my-lugs/', MyLugsListView.as_view(), name='my-lugs'),
     path('lug/<int:pk>/', LugDetailView.as_view(), name='lug-detail'),
     path('lug/new/', LugCreateView.as_view(), name='lug-create'),
     path('lug/<int:pk>/update', LugUpdateView.as_view(), name='lug-update'),

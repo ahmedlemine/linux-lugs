@@ -2,21 +2,21 @@
 {% block content %}
 <h1 class="mb-3">LUGs by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
 {% for lug in lugs %}
-<!-- TO DO : replace article with lug -->
-<article class="media content-section">
-    <img class="article-img" src="{{ lug.added_by.profile.image.url }}" alt="">
+<!-- TO DO : replace lug with lug -->
+<lug class="media content-section">
+    <img class="lug-img" src="{{ lug.added_by.profile.image.url }}" alt="">
     <div class="media-body">
-        <div class="article-metadata">
+        <div class="lug-metadata">
             <a class="mr-2" href="#">{{ lug.city }}, {{ lug.country }} </a>
         </div>
-        <h2><a class="article-title" href="{% url 'lug-detail' lug.id %}">{{ lug.name }}</a></h2>
-        <p class="article-content">{{ lug.description }}</p>
+        <h2><a class="lug-title" href="{% url 'lug-detail' lug.id %}">{{ lug.name }}</a></h2>
+        <p class="lug-content">{{ lug.description }}</p>
         <div>
                 <a class="mr-2" href="{% url 'lugs-by-user' lug.added_by.username %}">{{ lug.added_by }}</a>
                 <small class="text-muted">{{ lug.date_added|date:"F d, Y" }}</small>
         </div>
     </div>
-</article>
+</lug>
 
 {% endfor %}
 

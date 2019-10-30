@@ -36,37 +36,37 @@ body {
     margin-bottom: 20px;
   }
   
-  .article-title {
+  .lug-title {
     color: #444444;
   }
   
-  a.article-title:hover {
+  a.lug-title:hover {
     color: #428bca;
     text-decoration: none;
   }
   
-  .article-content {
+  .lug-content {
     white-space: pre-line;
   }
   
-  .article-img {
+  .lug-img {
     height: 177px;
     width: 300px;
     margin-right: 16px;
   }
   
-  .article-metadata {
+  .lug-metadata {
     padding-bottom: 1px;
     margin-bottom: 4px;
     border-bottom: 1px solid #e3e3e3
   }
   
-  .article-metadata a:hover {
+  .lug-metadata a:hover {
     color: #333;
     text-decoration: none;
   }
   
-  .article-svg {
+  .lug-svg {
     width: 25px;
     height: 25px;
     vertical-align: middle;

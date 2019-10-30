@@ -1,11 +1,10 @@
 {% extends "lugs/base.html" %}
 {% block content %}
-<!-- TO DO : replace article with lug 
-change object to lug , also in views-->
-<article class="media content-section">
-    <img class="article-img" src="{{ object.cover_image.url }}" alt="">
+<!-- TO DO : change object to lug , also in views-->
+<lug class="media content-section">
+    <img class="lug-img" src="{{ object.cover_image.url }}" alt="">
     <div class="media-body">
-        <div class="article-metadata">
+        <div class="lug-metadata">
             <a class="mr-2" href="#">{{ object.city }}, {{ object.country }} </a>
             {% if object.added_by == user %}
             <div>
@@ -14,13 +13,13 @@ change object to lug , also in views-->
             </div>
             {% endif %}
         </div>
-        <h2 class="article-title">{{ object.name }}</h2>
+        <h2 class="lug-title">{{ object.name }}</h2>
 
-        <p class="article-content">{{ object.description }}</p>
+        <p class="lug-content">{{ object.description }}</p>
         <div>
             <a class="mr-2" href="{% url 'lugs-by-user' object.added_by.username %}">{{ object.added_by }}</a>
             <small class="text-muted">{{ object.date_added|date:"F d, Y" }}</small>
         </div>
     </div>
-</article>
+</lug>
 {% endblock content %}

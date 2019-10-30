@@ -1,21 +1,21 @@
 {% extends "lugs/base.html" %}
 {% block content %}
 {% for lug in lugs %}
-<!-- TO DO : replace article with lug -->
-<article class="media content-section">
+<!-- TO DO : replace lug with lug -->
+<lug class="media content-section">
     <div class="media-body">
-        <div class="article-metadata">
-            <h2><a class="article-title" href="{% url 'lug-detail' lug.id %}">{{ lug.name }}</a></h2>
+        <div class="lug-metadata">
+            <h2><a class="lug-title" href="{% url 'lug-detail' lug.id %}">{{ lug.name }}</a></h2>
             <a class="mr-2" href="#">{{ lug.city }}, {{ lug.country }} </a>
         </div>
-        <img class="article-img" src="{{ lug.cover_image.url }}" alt="">
-        <p class="article-content">{{ lug.description }}</p>
+        <img class="lug-img" src="{{ lug.cover_image.url }}" alt="">
+        <p class="lug-content">{{ lug.description }}</p>
         <div>
                 Added by: <a class="mr-2" href="{% url 'lugs-by-user' lug.added_by.username %}">{{ lug.added_by }}</a>
                 <small class="text-muted">{{ lug.date_added|date:"F d, Y" }}</small>
         </div>
     </div>
-</article>
+</lug>
 
 {% endfor %}
 

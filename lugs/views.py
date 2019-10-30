@@ -91,5 +91,18 @@ class LugDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
+
+class MyLugsListView(LoginRequiredMixin, ListView):
+    model = Lug
+    template_name = 'lugs/my_lugs.html'
+    context_object_name = 'lugs'
+    paginate_by = 10
+
+    def get_queryset(self):
+        # user = get_object_or_404(User, username=self.kwargs.get('username'))
+        current_user = self.request.user
+        return Lug.objects.filter(added_by=current_user).order_by('-date_added')
+
+
 def about(request):
-    return render(request, 'lugs/about.html', {'title': 'About'})
+    return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})
