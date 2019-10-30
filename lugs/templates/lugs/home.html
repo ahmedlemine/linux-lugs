@@ -3,15 +3,15 @@
 {% for lug in lugs %}
 <!-- TO DO : replace article with lug -->
 <article class="media content-section">
-    <img class="article-img" src="{{ lug.cover_image.url }}" alt="">
     <div class="media-body">
         <div class="article-metadata">
+            <h2><a class="article-title" href="{% url 'lug-detail' lug.id %}">{{ lug.name }}</a></h2>
             <a class="mr-2" href="#">{{ lug.city }}, {{ lug.country }} </a>
         </div>
-        <h2><a class="article-title" href="{% url 'lug-detail' lug.id %}">{{ lug.name }}</a></h2>
+        <img class="article-img" src="{{ lug.cover_image.url }}" alt="">
         <p class="article-content">{{ lug.description }}</p>
         <div>
-                <a class="mr-2" href="{% url 'lugs-by-user' lug.added_by.username %}">{{ lug.added_by }}</a>
+                Added by: <a class="mr-2" href="{% url 'lugs-by-user' lug.added_by.username %}">{{ lug.added_by }}</a>
                 <small class="text-muted">{{ lug.date_added|date:"F d, Y" }}</small>
         </div>
     </div>

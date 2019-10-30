@@ -21,13 +21,13 @@ class LugListView(ListView):
     template_name = 'lugs/home.html'
     context_object_name = 'lugs'
     ordering = ['-date_added']
-    paginate_by = 2
+    paginate_by = 10
 
 class LugsByUserListView(ListView):
     model = Lug
     template_name = 'lugs/lugs_by_user.html'
     context_object_name = 'lugs'
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
@@ -39,7 +39,18 @@ class LugDetailView(DetailView):
 class LugCreateView(LoginRequiredMixin, CreateView):
     # TODO add a test_func to limit user's LUG to 3
     model = Lug
-    fields = ['name', 'country', 'province', 'city', 'description', 'cover_image', 'website', 'contact_person', 'contact_info', 'donate_link']
+    fields = [
+        'name',
+        'country',
+        'province',
+        'city',
+        'description',
+        'cover_image',
+        'website',
+        'contact_person',
+        'contact_info',
+        'donate_link'
+        ]
 
     def form_valid(self, form):
         form.instance.added_by = self.request.user
@@ -47,7 +58,18 @@ class LugCreateView(LoginRequiredMixin, CreateView):
 
 class LugUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Lug
-    fields = ['name', 'country', 'province', 'city', 'description', 'cover_image', 'website', 'contact_person', 'contact_info', 'donate_link']
+    fields = [
+        'name',
+        'country',
+        'province',
+        'city',
+        'description',
+        'website',
+        'contact_person',
+        'contact_info',
+        'donate_link',
+        'cover_image'
+        ]
 
     def form_valid(self, form):
         form.instance.added_by = self.request.user
