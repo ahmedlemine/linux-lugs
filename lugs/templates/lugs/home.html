@@ -11,7 +11,7 @@
         <img class="lug-img" src="{{ lug.cover_image.url }}" alt="">
         <p class="lug-content">{{ lug.description }}</p>
         <div>
-                Added by: <a class="mr-2" href="{% url 'lugs-by-user' lug.added_by.username %}">{{ lug.added_by }}</a>
+                Added by: <a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}">{{ lug.added_by }}</a>
                 <small class="text-muted">{{ lug.date_added|date:"F d, Y" }}</small>
         </div>
     </div>

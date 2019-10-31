@@ -17,7 +17,7 @@
 
         <p class="lug-content">{{ object.description }}</p>
         <div>
-            <a class="mr-2" href="{% url 'lugs-by-user' object.added_by.username %}">{{ object.added_by }}</a>
+            <a class="mr-2" href="{% url 'public-profile' object.added_by.username %}">{{ object.added_by }}</a>
             <small class="text-muted">{{ object.date_added|date:"F d, Y" }}</small>
         </div>
     </div>
