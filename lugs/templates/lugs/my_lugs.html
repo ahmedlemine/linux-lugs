@@ -1,11 +1,12 @@
 {% extends "lugs/base.html" %}
 {% block content %}
 <h1 class="mb-3">My LUGs ({{ page_obj.paginator.count }})</h1>
-{% if lugs != 0 %}
+{% if lugs %}
+
 {% for lug in lugs %}
 <!-- TO DO : replace lug with lug -->
 <lug class="media content-section">
-    <img class="lug-img" src="{{ lug.added_by.profile.image.url }}" alt="user_profile_image">
+    <img class="lug-img" src="{{ lug.cover_image.url }}" alt="user_profile_image">
     <div class="media-body">
         <div class="lug-metadata">
             <a class="mr-2" href="#">{{ lug.city }}, {{ lug.country }} </a>
@@ -18,9 +19,15 @@
         </div>
     </div>
 </lug>
-
 {% endfor %}
+
+{% else %}
+<h5>You haven't created any LUGs.</h5>
+<a class="btn btn-primary" href="{% url 'lug-create' %}">New LUG</a>
+
 {% endif %}
+
+
 
 {% if is_paginated %}
 

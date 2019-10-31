@@ -92,11 +92,19 @@ class LugDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-class MyLugsListView(LoginRequiredMixin, ListView):
+class MyLugsListView(LoginRequiredMixin, ListView): 
+    # TODO: make it so that if lugs: show, if not: you have no lugs.
     model = Lug
     template_name = 'lugs/my_lugs.html'
     context_object_name = 'lugs'
     paginate_by = 10
+
+    # def test_func(self):
+    #     current_user = self.request.user
+    #     lugs = Lug.objects.filter(added_by=current_user)
+    #     if lugs:
+    #         return True
+    #     return False
 
     def get_queryset(self):
         # user = get_object_or_404(User, username=self.kwargs.get('username'))
