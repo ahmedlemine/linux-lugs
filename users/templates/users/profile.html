@@ -5,20 +5,21 @@
     <div class="media">
         <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
         <div class="media-body">
-            <h2 class="account-heading">{{ user.username }}'s Profile</h2>
-            <p class="text-secondary">{{ user.email }}</p>
+            <h4>You're logged in as: {{ user.username }}</h4>
             <a class="btn btn-primary" href="{% url 'my-lugs' %}">My LUGs</a>
+            <a class="btn btn-outline-info" href="{% url 'logout' %}">Logout</a>
         </div>
     </div>
     <form method="POST" enctype="multipart/form-data">
+        <legend class="border-bottom mb-4">Your Linux LUGs Profile</legend>
+
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Your Linux LUGs Profile</legend>
             {{ u_form|crispy }}
             {{ p_form|crispy }}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Update Profile</button>
+            <button class="btn btn-primary" type="submit">Update Profile</button>
         </div>
     </form>
 </div>

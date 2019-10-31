@@ -37,7 +37,7 @@ class LugDetailView(DetailView):
     model = Lug
 
 class LugCreateView(LoginRequiredMixin, CreateView):
-    # TODO add a test_func to limit user's LUG to 3
+    # TODO limit user's LUG to 3
     model = Lug
     fields = [
         'name',
@@ -93,24 +93,44 @@ class LugDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 class MyLugsListView(LoginRequiredMixin, ListView): 
-    # TODO: make it so that if lugs: show, if not: you have no lugs.
     model = Lug
     template_name = 'lugs/my_lugs.html'
     context_object_name = 'lugs'
     paginate_by = 10
 
-    # def test_func(self):
-    #     current_user = self.request.user
-    #     lugs = Lug.objects.filter(added_by=current_user)
-    #     if lugs:
-    #         return True
-    #     return False
-
     def get_queryset(self):
-        # user = get_object_or_404(User, username=self.kwargs.get('username'))
         current_user = self.request.user
         return Lug.objects.filter(added_by=current_user).order_by('-date_added')
 
+
+class LugsByCityListView(ListView):
+    # TODO : look for city in a list of world cities, if not return error
+    # fix space issue in city name
+    model = Lug
+    template_name = 'lugs/lugs_by_city.html'
+    context_object_name = 'lugs'
+    paginate_by = 10
+
+    def get_queryset(self):
+        lug_city = get_object_or_404(Lug, city=self.kwargs.get('city'))
+        # lug_city = Lug.objects.filter(city=self.kwargs.get('city').first()
+        lugs = Lug.objects.filter(city=lug_city).order_by('-date_added')
+
+        return lugs
+
+class LugsByCountryListView(ListView):
+    # TODO : look for city in a list of world countries, if not return error
+    # fix space and casing issue in country name
+    model = Lug
+    template_name = 'lugs/lugs_by_country.html'
+    context_object_name = 'lugs'
+    paginate_by = 10
+
+    def get_queryset(self):
+        lug_country = get_object_or_404(Lug, country=self.kwargs.get('country'))
+        # lugs = Lug.objects.filter(country=self.kwargs['country']).order_by('-date_added')
+        lugs = Lug.objects.filter(country=lug_country).order_by('-date_added')
+        return lugs
 
 def about(request):
     return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})
