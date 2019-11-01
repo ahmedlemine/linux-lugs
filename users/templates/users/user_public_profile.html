@@ -4,15 +4,15 @@
     <div class="media">
         <img class="rounded-circle account-img" src="{{ user_public.profile.image.url }}">
         <div class="media-body">
-            <h4>{{ user_public.username }}'s Profile</h4>
-            <p>LinuxLugs Name: {{ user_public.username }}</p>
-            <p>Real Name: {{ user_public.profile.real_name }}</p>
-            <div>
+            <div class="ml-4">
+                <h4>{{ user_public.username }}'s Profile</h4>
+                <p>LinuxLugs Name: {{ user_public.username }}</p>
+                <p>Real Name: {{ user_public.profile.real_name }}</p>
                 <p>Member Since: <small>{{ user_public.date_joined|date:"F d, Y" }}</small></p> 
                 <p>Last Seen: <small>{{ user_public.last_login|date:"F d, Y" }}</small></p> 
             </div>
             <a class="btn btn-primary mb-4" href="{% url 'lugs-by-user' user_public.username %}">LUGs by this user</a>
-
+            <h4>Member of these LUGs:</h4>
         </div>
     </div>
 

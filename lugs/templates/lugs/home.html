@@ -9,10 +9,15 @@
             <a class="mr-2" href="#">{{ lug.city }}, {{ lug.country }} </a>
         </div>
         <img class="lug-img" src="{{ lug.cover_image.url }}" alt="">
-        <p class="lug-content">{{ lug.description }}</p>
+        <!-- <p class="lug-content">{{ lug.description }}</p> -->
+
         <div>
-                Added by: <a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}">{{ lug.added_by }}</a>
-                <small class="text-muted">{{ lug.date_added|date:"F d, Y" }}</small>
+                <small class="text-muted">
+                By: <a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}">{{ lug.added_by }}</a>
+                | Last Updated: {{ lug.last_updated|date:"F d, Y" }}</small>
+        </div>
+        <div>
+                <a class="btn btn-outline-info" href="{% url 'lug-detail' lug.pk %}">More...</a>
         </div>
     </div>
 </lug>

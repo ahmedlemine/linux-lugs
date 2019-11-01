@@ -64,11 +64,11 @@ class LugUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         'province',
         'city',
         'description',
+        'cover_image',
         'website',
         'contact_person',
         'contact_info',
-        'donate_link',
-        'cover_image'
+        'donate_link'
         ]
 
     def form_valid(self, form):
@@ -112,9 +112,9 @@ class LugsByCityListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        lug_city = get_object_or_404(Lug, city=self.kwargs.get('city'))
+        # lug_city = get_object_or_404(Lug, city=self.kwargs.get('city'))
         # lug_city = Lug.objects.filter(city=self.kwargs.get('city').first()
-        lugs = Lug.objects.filter(city=lug_city).order_by('-date_added')
+        lugs = Lug.objects.filter(city=self.kwargs['lug_city']).order_by('-date_added')
 
         return lugs
 
@@ -127,9 +127,9 @@ class LugsByCountryListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        lug_country = get_object_or_404(Lug, country=self.kwargs.get('country'))
-        # lugs = Lug.objects.filter(country=self.kwargs['country']).order_by('-date_added')
-        lugs = Lug.objects.filter(country=lug_country).order_by('-date_added')
+        # lug_country = Lug country=self.kwargs.get('country'))
+        lugs = Lug.objects.filter(country=self.kwargs['country']).order_by('-date_added')
+        # lugs = Lug.objects.filter(country=lug_country).order_by('-date_added')
         return lugs
 
 def about(request):
