@@ -1,49 +1,57 @@
 {% extends "lugs/base.html" %}
 {% block content %}
-{% for lug in lugs %}
-<!-- TO DO : replace lug with lug -->
-<lug class="media content-section">
-    <div class="media-body">
-        <div class="lug-metadata">
-            <h2><a class="lug-title" href="{% url 'lug-detail' lug.id %}">{{ lug.name }}</a></h2>
-            <a class="mr-2" href="#">{{ lug.city }}, {{ lug.country }} </a>
-        </div>
-        <img class="lug-img" src="{{ lug.cover_image.url }}" alt="">
-        <!-- <p class="lug-content">{{ lug.description }}</p> -->
 
-        <div>
-                <small class="text-muted">
-                ({{lug.profile_set.all.count}}) Member(s) |
-                By: <a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}">{{ lug.added_by }}</a>
-                | Last Updated: {{ lug.last_updated|date:"F d, Y" }}</small>
+{% for lug in lugs %}
+
+<div class="col-md-4">
+    <div class="card mb-4 box-shadow">
+        <div class="card-banner">
+            <a href="{% url 'lug-detail' lug.pk %}">
+                <img class="card-img-top"
+                    src="{{ lug.cover_image.url }}"
+                    alt="{{ lug.name }} cover image">
+            </a>
+            <p class="card-title">{{ lug.name }}</p>
         </div>
-        <div>
-                <a class="btn btn-outline-info" href="{% url 'lug-detail' lug.pk %}">More...</a>
+        <div class="card-body">
+            <p class="card-text"><strong>{{lug.city}}, {{ lug.country }}</strong></p>
+            <div class="d-flex justify-content-between align-items-center">
+                <small class="text-muted">
+                    <i class="fa fa-users fa-lg" aria-hidden="true"></i> {{lug.profile_set.all.count}}
+                    <i class="fa fa-user fa-lg" aria-hidden="true"></i><a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}"> {{ lug.added_by }}</a>
+                    <i class="fa fa-refresh fa-lg" aria-hidden="true"></i> {{ lug.last_updated|date:"F d, Y" }}</small>
+                <div class="btn-group">
+                    <a class="btn btn-primary" href="{% url 'lug-detail' lug.pk %}">View</a></span>
+                </div>
+            </div>
         </div>
     </div>
-</lug>
+</div>
 
 {% endfor %}
 
+
+
+
 {% if is_paginated %}
 
-    {% if page_obj.has_previous %}
-        <a class="btn btn-outline-info mb-4" href="?page=1">&laquo;First</a>
-        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-    {% endif %}
+{% if page_obj.has_previous %}
+<a class="btn btn-outline-info mb-4" href="?page=1">&laquo;First</a>
+<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+{% endif %}
 
-    {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-            <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-            <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-        {% endif %}
-    {% endfor %}
+{% for num in page_obj.paginator.page_range %}
+{% if page_obj.number == num %}
+<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+{% endif %}
+{% endfor %}
 
-    {% if page_obj.has_next %}
-        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last&raquo;</a>
-    {% endif %}
+{% if page_obj.has_next %}
+<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last&raquo;</a>
+{% endif %}
 
 {% endif %}
 

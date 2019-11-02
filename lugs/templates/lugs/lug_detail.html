@@ -1,11 +1,10 @@
 {% extends "lugs/base.html" %}
 {% block content %}
-<!-- TO DO : change object to lug , also in views-->
 <lug class="media content-section">
     <img class="lug-img" src="{{ lug.cover_image.url }}" alt="">
     <div class="media-body">
         <div class="lug-metadata">
-            <a class="mr-2" href="#">{{ lug.city }}, {{ lug.country }} </a>
+            <h2 class="lug-title">{{ lug.name }}</h2>
             {% if lug.added_by == user %}
                 <div>
                     <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'lug-update' lug.id %}">Update</a>
@@ -13,22 +12,27 @@
                 </div>
             {% endif %}
         </div>
-        <h2 class="lug-title">{{ lug.name }}</h2>
-
         <p class="lug-content"><strong>About: </strong>{{ lug.description }}</p>
+
         <div>
-            <p><strong>Added by: </strong><a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}">{{ lug.added_by }}</a></p>
-            <p><strong>Added On: </strong>{{ lug.date_added|date:"F d, Y" }}</p>
-            <p><strong>Last Updated: </strong>  {{ lug.last_updated|date:"F d, Y" }}</p>
-            <p>{{lug.profile_set.all.count}} Members</p>
+            <p><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>
+            <a href="#">{{ lug.city }}, {{ lug.country }} </a></p>
+            <p><i class="fa fa-user fa-lg" aria-hidden="true"></i><strong> Added by: </strong><a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}">{{ lug.added_by }}</a></p>
+            <p><i class="fa fa-calendar-plus-o fa-lg" aria-hidden="true"></i><strong> Added On: </strong>{{ lug.date_added|date:"F d, Y" }}</p>
+            <p><i class="fa fa-refresh fa-lg" aria-hidden="true"></i><strong> Last Updated: </strong>  {{ lug.last_updated|date:"F d, Y" }}</p>
+            <p><i class="fa fa-home fa-lg" aria-hidden="true"></i><strong> Website: </strong><a href="{{ lug.website }}">{{ lug.website }}</a></p>
+            <p><i class="fa fa-address-book fa-lg" aria-hidden="true"></i><strong> Contact Person: </strong>{{ lug.contact_person }}</p>
+            <p><i class="fa fa-address-card fa-lg" aria-hidden="true"></i><strong> Contact Info: </strong>{{ lug.contact_info }}</p>
+            <p><i class="fa fa-paypal fa-lg" aria-hidden="true"></i><strong> Donate: </strong><a href="{{ lug.donate_link }}">{{ lug.donate_link }}</a></p>
+            <p><i class="fa fa-users fa-lg" aria-hidden="true"></i><strong> Members  ({{lug.profile_set.all.count}}):</strong></p>
 
         </div>
         <div>
-            <h3>Members of this LUG ({{lug.profile_set.all.count}}):</h3>
+            <h3></h3>
             {% for profile in lug.profile_set.all %}
             
             <small class="text-muted"><a href="{% url 'public-profile' profile %}">
-                <img class="rounded-circle mr-1" "width="30" height="30" src="{{ profile.image.url }}">{{ profile }}</a></small>
+                <img class="lug-thumb rounded-circle mr-1" "width="30" height="30" src="{{ profile.image.url }}">{{ profile }}</a></small>
             {% endfor%}
         </div>
     </div>

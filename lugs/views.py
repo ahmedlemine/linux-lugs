@@ -127,14 +127,6 @@ class LugsByCountryListView(ListView):
         # lugs = Lug.objects.filter(country=lug_country).order_by('-date_added')
         return lugs
 
-# def lugDetails(request):
-#     lug = Lug.objects.filter().first()
-#     members = lug.profile_set.all()
-#     context = {
-#         'lug': lug,
-#         'members': members
-#     }
-#     return render(request, 'lugs/lug_detail.html', context)
 
 def about(request):
     return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})

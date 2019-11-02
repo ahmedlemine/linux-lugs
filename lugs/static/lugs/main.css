@@ -55,6 +55,13 @@ body {
     margin-right: 16px;
   }
   
+  .lug-thumb {
+    height: 30px;
+    width: 30px;
+    margin-right: 1px;
+    margin-left: 1px;
+  }
+
   .lug-metadata {
     padding-bottom: 1px;
     margin-bottom: 4px;
