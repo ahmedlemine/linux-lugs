@@ -7,7 +7,7 @@ from .views import (LugListView,
                     LugsByUserListView,
                     MyLugsListView,
                     LugsByCityListView,
-                    LugsByCountryListView
+                    LugsByCountryListView,
                     )
 from . import views
 

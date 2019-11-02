@@ -10,12 +10,6 @@ from django.views.generic import (ListView,
 from .models import Lug
 
 
-# def home(request):
-#     context = {
-#         'lugs': Lug.objects.all()
-#     }
-#     return render(request, 'lugs/home.html', context)
-
 class LugListView(ListView):
     model = Lug
     template_name = 'lugs/home.html'
@@ -35,6 +29,7 @@ class LugsByUserListView(ListView):
 
 class LugDetailView(DetailView):
     model = Lug
+    context_object_name = 'lug'
 
 class LugCreateView(LoginRequiredMixin, CreateView):
     # TODO limit user's LUG to 3
@@ -131,6 +126,15 @@ class LugsByCountryListView(ListView):
         lugs = Lug.objects.filter(country=self.kwargs['country']).order_by('-date_added')
         # lugs = Lug.objects.filter(country=lug_country).order_by('-date_added')
         return lugs
+
+# def lugDetails(request):
+#     lug = Lug.objects.filter().first()
+#     members = lug.profile_set.all()
+#     context = {
+#         'lug': lug,
+#         'members': members
+#     }
+#     return render(request, 'lugs/lug_detail.html', context)
 
 def about(request):
     return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})

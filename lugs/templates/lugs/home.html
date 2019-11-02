@@ -13,6 +13,7 @@
 
         <div>
                 <small class="text-muted">
+                ({{lug.profile_set.all.count}}) Member(s) |
                 By: <a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}">{{ lug.added_by }}</a>
                 | Last Updated: {{ lug.last_updated|date:"F d, Y" }}</small>
         </div>

@@ -39,8 +39,9 @@ def profile(request):
 
 def user_public_profile(request, username):
     user_public = get_object_or_404(User, username=username)
-
+    user_lugs = user_public.profile.lugs.all()
     context = {
-        'user_public': user_public
+        'user_public': user_public,
+        'user_lugs': user_lugs
     }
     return render(request, 'users/user_public_profile.html', context)

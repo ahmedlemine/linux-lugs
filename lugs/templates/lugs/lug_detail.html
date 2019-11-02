@@ -2,24 +2,34 @@
 {% block content %}
 <!-- TO DO : change object to lug , also in views-->
 <lug class="media content-section">
-    <img class="lug-img" src="{{ object.cover_image.url }}" alt="">
+    <img class="lug-img" src="{{ lug.cover_image.url }}" alt="">
     <div class="media-body">
         <div class="lug-metadata">
-            <a class="mr-2" href="#">{{ object.city }}, {{ object.country }} </a>
-            {% if object.added_by == user %}
-            <div>
-                <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'lug-update' object.id %}">Update</a>
-                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'lug-delete' object.id %}">Delete</a>
-            </div>
+            <a class="mr-2" href="#">{{ lug.city }}, {{ lug.country }} </a>
+            {% if lug.added_by == user %}
+                <div>
+                    <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'lug-update' lug.id %}">Update</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'lug-delete' lug.id %}">Delete</a>
+                </div>
             {% endif %}
         </div>
-        <h2 class="lug-title">{{ object.name }}</h2>
+        <h2 class="lug-title">{{ lug.name }}</h2>
 
-        <p class="lug-content"><strong>About:</strong>{{ object.description }}</p>
+        <p class="lug-content"><strong>About: </strong>{{ lug.description }}</p>
         <div>
-            <p><strong>Added by: </strong><a class="mr-2" href="{% url 'public-profile' object.added_by.username %}">{{ object.added_by }}</a></p>
-            <p><strong>Added On: </strong>{{ object.date_added|date:"F d, Y" }}</p>
-            <p><strong>Last Updated: </strong>  {{ object.last_updated|date:"F d, Y" }}</p>
+            <p><strong>Added by: </strong><a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}">{{ lug.added_by }}</a></p>
+            <p><strong>Added On: </strong>{{ lug.date_added|date:"F d, Y" }}</p>
+            <p><strong>Last Updated: </strong>  {{ lug.last_updated|date:"F d, Y" }}</p>
+            <p>{{lug.profile_set.all.count}} Members</p>
+
+        </div>
+        <div>
+            <h3>Members of this LUG ({{lug.profile_set.all.count}}):</h3>
+            {% for profile in lug.profile_set.all %}
+            
+            <small class="text-muted"><a href="{% url 'public-profile' profile %}">
+                <img class="rounded-circle mr-1" "width="30" height="30" src="{{ profile.image.url }}">{{ profile }}</a></small>
+            {% endfor%}
         </div>
     </div>
 </lug>
