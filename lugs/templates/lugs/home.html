@@ -1,13 +1,13 @@
 {% extends "lugs/base.html" %}
 {% block content %}
-
+<div class="row">
 {% for lug in lugs %}
 
 <div class="col-md-4">
     <div class="card mb-4 box-shadow">
         <div class="card-banner">
             <a href="{% url 'lug-detail' lug.pk %}">
-                <img class="card-img-top"
+                <img class="card-img-top lug-img"
                     src="{{ lug.cover_image.url }}"
                     alt="{{ lug.name }} cover image">
             </a>
@@ -21,7 +21,7 @@
                     <i class="fa fa-user fa-lg" aria-hidden="true"></i><a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}"> {{ lug.added_by }}</a>
                     <i class="fa fa-refresh fa-lg" aria-hidden="true"></i> {{ lug.last_updated|date:"F d, Y" }}</small>
                 <div class="btn-group">
-                    <a class="btn btn-primary" href="{% url 'lug-detail' lug.pk %}">View</a></span>
+                    <a class="btn btn-primary" href="{% url 'lug-detail' lug.pk %}">View</a>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
 </div>
 
 {% endfor %}
-
+</div>
 
 
 
@@ -56,3 +56,4 @@
 {% endif %}
 
 {% endblock content %}
+
