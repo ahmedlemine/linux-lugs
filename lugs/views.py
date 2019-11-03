@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.views.generic import (ListView,
@@ -79,7 +79,6 @@ class LugUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class LugDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Lug
     success_url = '/'
-    #TODO add a deletion success message
     def test_func(self):
         lug = self.get_object()
         if self.request.user == lug.added_by:
@@ -127,6 +126,16 @@ class LugsByCountryListView(ListView):
         # lugs = Lug.objects.filter(country=lug_country).order_by('-date_added')
         return lugs
 
+
+def joinLug(request, pk, method=['POST', 'GET']):
+    
+    if request.method == 'POST':
+        user = request.user.profile
+        lug = Lug.objects.get(pk=pk)
+        user.lugs.add(lug)
+        return redirect('lugs-home')
+
+    return render(request, 'lugs/join_lug.html')
 
 def about(request):
     return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})

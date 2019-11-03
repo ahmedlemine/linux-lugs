@@ -19,7 +19,7 @@
                 <small class="text-muted">
                     <i class="fa fa-users fa-lg" aria-hidden="true"></i> {{lug.profile_set.all.count}}
                     <i class="fa fa-user fa-lg" aria-hidden="true"></i><a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}"> {{ lug.added_by }}</a>
-                    <i class="fa fa-refresh fa-lg" aria-hidden="true"></i> {{ lug.last_updated|date:"F d, Y" }}</small>
+                </small>
                 <div class="btn-group">
                     <a class="btn btn-primary" href="{% url 'lug-detail' lug.pk %}">View</a>
                 </div>
