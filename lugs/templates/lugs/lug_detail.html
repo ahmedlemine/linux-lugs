@@ -26,6 +26,11 @@
             <p><i class="fa fa-users fa-lg" aria-hidden="true"></i><strong> Members  ({{lug.profile_set.all.count}}):</strong></p>
 
         </div>
+            {% if user.is_authenticated and lug.added_by != user and user not in lug.profile_set %}
+            <div>
+                <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'join-lug' lug.id %}">Join</a>
+            </div>
+            {% endif %}
         <div>
             <h3></h3>
             {% for profile in lug.profile_set.all %}

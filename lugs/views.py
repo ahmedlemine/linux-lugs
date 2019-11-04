@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic import (ListView,
                                   DetailView,
@@ -126,10 +127,11 @@ class LugsByCountryListView(ListView):
         # lugs = Lug.objects.filter(country=lug_country).order_by('-date_added')
         return lugs
 
-
+#TODO: prevent existing lug members from accessing this lu, 
+@login_required
 def joinLug(request, pk, method=['POST', 'GET']):
     
-    if request.method == 'POST':
+    if request.method == 'POST': # and user not in lug.profile_set
         user = request.user.profile
         lug = Lug.objects.get(pk=pk)
         user.lugs.add(lug)
