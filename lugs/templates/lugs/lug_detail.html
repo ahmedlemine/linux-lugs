@@ -26,19 +26,17 @@
             <p><i class="fa fa-users fa-lg" aria-hidden="true"></i><strong> Members  ({{lug.profile_set.all.count}}):</strong></p>
 
         </div>
-            {% if lug.added_by != user %}
-                {% if user in lug.profile_set.all %}
-                <div>
-                    <a class="btn btn-success" href="{% url 'leave-lug' lug.id %}">Leave</a>
-                </div>
-                {% endif %}
-                {% if user not in lug.profile_set.all %}
+                {% if user.profile in lug.profile_set.all %}
                     <div>
-                        <a class="btn btn-success" href="{% url 'join-lug' lug.id %}">Join</a>
+                        <a class="btn btn-danger" href="{% url 'leave-lug' lug.id %}">Leave LUG</a>
+                    </div>
+                {% endif %}
+                {% if user.profile not in lug.profile_set.all %}
+                    <div>
+                        <a class="btn btn-success" href="{% url 'join-lug' lug.id %}">Join LUG</a>
                     </div>
                 {% endif %}
 
-            {% endif %}
         <div>
             <h3></h3>
             {% for profile in lug.profile_set.all %}

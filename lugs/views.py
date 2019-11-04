@@ -131,11 +131,13 @@ class LugsByCountryListView(ListView):
 
 @login_required
 def joinLug(request, pk, method=['POST', 'GET']):
-    
+    user = request.user.profile
+    lug = get_object_or_404(Lug, pk=pk)
+    # in_lug = is_in_lug(user, lug)
+    # lug = Lug.objects.get(pk=pk)    
     if request.method == 'POST':
-        user = request.user.profile
-        lug = Lug.objects.get(pk=pk)
-        if user not in lug.profile_set.all():
+        if user in lug.profile_set.all():
+        # if not in_lug:
             user.lugs.add(lug)
             messages.success(request, f'Your are now a member of this LUG')            
             return redirect('lug-detail', pk=pk)
@@ -143,17 +145,17 @@ def joinLug(request, pk, method=['POST', 'GET']):
             messages.warning(request, f'Your are already a member of this LUG!')
             return redirect('lug-detail', pk=pk)
 
-
-    return render(request, 'lugs/join_lug.html')
+    return render(request, 'lugs/join_lug.html', {'pk': pk, 'in_lug': in_lug})
 
 
 @login_required
 def leaveLug(request, pk, method=['POST', 'GET']):
-    
+    user = request.user.profile
+    lug = get_object_or_404(Lug, pk=pk)
+    # in_lug = is_in_lug(user, lug)
     if request.method == 'POST':
-        user = request.user.profile
-        lug = Lug.objects.get(pk=pk)
         if user in lug.profile_set.all():
+        # if in_lug:
             user.lugs.remove(lug)
             messages.success(request, f'Your have successfully left this LUG')            
             return redirect('lug-detail', pk=pk)
@@ -161,8 +163,13 @@ def leaveLug(request, pk, method=['POST', 'GET']):
             messages.warning(request, f'Your are not a member of this LUG!')
             return redirect('lug-detail', pk=pk)
 
+    return render(request, 'lugs/leave_lug.html', {'pk': pk, 'in_lug': in_lug})
 
-    return render(request, 'lugs/leave_lug.html')
+
+# check if user is already a member of a LUG
+# def is_in_lug(user, lug):
+#     return user in lug.profile_set.all()
+
 
 def about(request):
     return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})
