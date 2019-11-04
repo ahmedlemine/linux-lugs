@@ -16,13 +16,13 @@ class LugListView(ListView):
     template_name = 'lugs/home.html'
     context_object_name = 'lugs'
     ordering = ['-date_added']
-    paginate_by = 25
+    paginate_by = 5
 
 class LugsByUserListView(ListView):
     model = Lug
     template_name = 'lugs/lugs_by_user.html'
     context_object_name = 'lugs'
-    paginate_by = 25
+    paginate_by = 5
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
@@ -91,7 +91,7 @@ class MyLugsListView(LoginRequiredMixin, ListView):
     model = Lug
     template_name = 'lugs/my_lugs.html'
     context_object_name = 'lugs'
-    paginate_by = 25
+    paginate_by = 5
 
     def get_queryset(self):
         current_user = self.request.user
@@ -104,7 +104,7 @@ class LugsByCityListView(ListView):
     model = Lug
     template_name = 'lugs/lugs_by_city.html'
     context_object_name = 'lugs'
-    paginate_by = 25
+    paginate_by = 5
 
     def get_queryset(self):
         # lug_city = get_object_or_404(Lug, city=self.kwargs.get('city'))
@@ -119,7 +119,7 @@ class LugsByCountryListView(ListView):
     model = Lug
     template_name = 'lugs/lugs_by_country.html'
     context_object_name = 'lugs'
-    paginate_by = 25
+    paginate_by = 5
 
     def get_queryset(self):
         # lug_country = Lug country=self.kwargs.get('country'))
