@@ -1,0 +1,16 @@
+{% extends "lugs/base.html" %}
+{% block content %}
+<div class="content-sections">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class ="form-group">
+            <legend class="border-bottom mb-4">Are sure you want to leave this Linux User Group?</legend>
+
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-danger" type="submit">Yes, Leave!</button>
+
+        </div>
+    </form>
+</div>
+{% endblock content %}
