@@ -17,13 +17,13 @@ class LugListView(ListView):
     template_name = 'lugs/home.html'
     context_object_name = 'lugs'
     ordering = ['-date_added']
-    paginate_by = 5
+    paginate_by = 10
 
 class LugsByUserListView(ListView):
     model = Lug
     template_name = 'lugs/lugs_by_user.html'
     context_object_name = 'lugs'
-    paginate_by = 5
+    paginate_by = 10
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
@@ -92,7 +92,7 @@ class MyLugsListView(LoginRequiredMixin, ListView):
     model = Lug
     template_name = 'lugs/my_lugs.html'
     context_object_name = 'lugs'
-    paginate_by = 5
+    paginate_by = 10
 
     def get_queryset(self):
         current_user = self.request.user
@@ -105,7 +105,7 @@ class LugsByCityListView(ListView):
     model = Lug
     template_name = 'lugs/lugs_by_city.html'
     context_object_name = 'lugs'
-    paginate_by = 5
+    paginate_by = 10
 
     def get_queryset(self):
         # lug_city = get_object_or_404(Lug, city=self.kwargs.get('city'))
@@ -120,7 +120,7 @@ class LugsByCountryListView(ListView):
     model = Lug
     template_name = 'lugs/lugs_by_country.html'
     context_object_name = 'lugs'
-    paginate_by = 5
+    paginate_by = 10
 
     def get_queryset(self):
         # lug_country = Lug country=self.kwargs.get('country'))
@@ -136,7 +136,7 @@ def joinLug(request, pk, method=['POST', 'GET']):
     # in_lug = is_in_lug(user, lug)
     # lug = Lug.objects.get(pk=pk)    
     if request.method == 'POST':
-        if user in lug.profile_set.all():
+        if user not in lug.profile_set.all():
         # if not in_lug:
             user.lugs.add(lug)
             messages.success(request, f'Your are now a member of this LUG')            
@@ -145,7 +145,7 @@ def joinLug(request, pk, method=['POST', 'GET']):
             messages.warning(request, f'Your are already a member of this LUG!')
             return redirect('lug-detail', pk=pk)
 
-    return render(request, 'lugs/join_lug.html', {'pk': pk, 'in_lug': in_lug})
+    return render(request, 'lugs/join_lug.html', {'pk': pk})
 
 
 @login_required
@@ -163,13 +163,18 @@ def leaveLug(request, pk, method=['POST', 'GET']):
             messages.warning(request, f'Your are not a member of this LUG!')
             return redirect('lug-detail', pk=pk)
 
-    return render(request, 'lugs/leave_lug.html', {'pk': pk, 'in_lug': in_lug})
+    return render(request, 'lugs/leave_lug.html', {'pk': pk})
 
 
 # check if user is already a member of a LUG
 # def is_in_lug(user, lug):
 #     return user in lug.profile_set.all()
 
+def lugMembersView(request, pk):
+    lug = get_object_or_404(Lug, pk=pk)
+    members = lug.profile_set.all()
+
+    return render(request, 'lugs/lug_members_list.html', {'lug': lug, 'members': members})
 
 def about(request):
     return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})

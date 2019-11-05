@@ -23,5 +23,6 @@ urlpatterns = [
     path('lugs-in-country/<str:country>/', LugsByCountryListView.as_view(), name='lugs-by-country'),    
     path('about/', views.about, name='lugs-about'),
     path('join-lug/<int:pk>/', views.joinLug, name='join-lug'),
-    path('leave-lug/<int:pk>/', views.leaveLug, name='leave-lug')
+    path('leave-lug/<int:pk>/', views.leaveLug, name='leave-lug'),
+    path('lug-members/<int:pk>/', views.lugMembersView, name='lug-members')
 ]
