@@ -166,10 +166,6 @@ def leaveLug(request, pk, method=['POST', 'GET']):
     return render(request, 'lugs/leave_lug.html', {'pk': pk})
 
 
-# check if user is already a member of a LUG
-# def is_in_lug(user, lug):
-#     return user in lug.profile_set.all()
-
 def lugMembersView(request, pk):
     lug = get_object_or_404(Lug, pk=pk)
     members = lug.profile_set.all()

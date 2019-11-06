@@ -1,12 +1,17 @@
 {% extends "lugs/base.html" %}
 {% block content %}
-
-<h1>Members of <a href="{% url 'lug-detail' lug.id %}">{{lug.name}}</a> :</h1> 
-
-    {% for member in members %}
-<p>
-<small class="text-muted"><a href="{% url 'public-profile' member %}">
-    <img class="lug-thumb rounded-circle mr-1" "width="30" height="30" src="{{ member.image.url }}">{{ member }}</a></small>{% endfor %}
-</p>
-
+<div>
+    <h1>Members of <a href="{% url 'lug-detail' lug.id %}">{{lug.name}}</a></h1>
+</div>
+<div>
+{% for member in members %}
+        <p><a href="{% url 'public-profile' member %}">
+            <img class="lug-thumb rounded-circle mr-2" src="{{ member.image.url }}"></a>
+            {% if member.real_name %}
+                <a href="{% url 'public-profile' member %}">{{ member.real_name }}</a></p>
+            {% else %}
+                <a href="{% url 'public-profile' member %}">{{ member }}</a></p>
+            {% endif %} 
+    {% endfor %}
+</div>
 {% endblock content %}

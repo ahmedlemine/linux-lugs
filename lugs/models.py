@@ -16,9 +16,10 @@ class Lug(models.Model):
     city = models.CharField(max_length=100, null=False, blank=False)
     # location on map (lat, long)
     # time
-    contact_person = models.CharField(max_length=200, null=True, blank=True)
+    contact_person = models.CharField(max_length=100, null=True, blank=True)
     # TODO: make it a list
     contact_info = models.TextField(null=True, blank=True)
+    # youtube_channel = models.URLField(null=True, blank=True)
     donate_link = models.URLField(null=True, blank=True)
     added_by = models.ForeignKey(User, on_delete=models.CASCADE)
     date_added = models.DateTimeField(default=timezone.now)
