@@ -17,13 +17,13 @@ class LugListView(ListView):
     template_name = 'lugs/home.html'
     context_object_name = 'lugs'
     ordering = ['-date_added']
-    paginate_by = 10
+    paginate_by = 25
 
 class LugsByUserListView(ListView):
     model = Lug
     template_name = 'lugs/lugs_by_user.html'
     context_object_name = 'lugs'
-    paginate_by = 10
+    paginate_by = 25
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
@@ -136,44 +136,44 @@ class LugsByCountryListView(ListView):
 
 
 @login_required
-def joinLug(request, pk, method=['POST', 'GET']):
+def joinLug(request, slug, method=['POST', 'GET']):
     user = request.user.profile
-    lug = get_object_or_404(Lug, pk=pk)
+    lug = get_object_or_404(Lug, slug=slug)
     # in_lug = is_in_lug(user, lug)
-    # lug = Lug.objects.get(pk=pk)    
+    # lug = Lug.objects.get(slug=slug)    
     if request.method == 'POST':
         if user not in lug.profile_set.all():
         # if not in_lug:
             user.lugs.add(lug)
             messages.success(request, f'Your are now a member of this LUG')            
-            return redirect('lug-detail', pk=pk)
+            return redirect('lug-detail', slug=slug)
         else:
             messages.warning(request, f'Your are already a member of this LUG!')
-            return redirect('lug-detail', pk=pk)
+            return redirect('lug-detail', slug=slug)
 
-    return render(request, 'lugs/join_lug.html', {'pk': pk})
+    return render(request, 'lugs/join_lug.html', {'slug': slug})
 
 
 @login_required
-def leaveLug(request, pk, method=['POST', 'GET']):
+def leaveLug(request, slug, method=['POST', 'GET']):
     user = request.user.profile
-    lug = get_object_or_404(Lug, pk=pk)
+    lug = get_object_or_404(Lug, slug=slug)
     # in_lug = is_in_lug(user, lug)
     if request.method == 'POST':
         if user in lug.profile_set.all():
         # if in_lug:
             user.lugs.remove(lug)
             messages.success(request, f'Your have successfully left this LUG')            
-            return redirect('lug-detail', pk=pk)
+            return redirect('lug-detail', slug=slug)
         else:
             messages.warning(request, f'Your are not a member of this LUG!')
-            return redirect('lug-detail', pk=pk)
+            return redirect('lug-detail', slug=slug)
 
-    return render(request, 'lugs/leave_lug.html', {'pk': pk})
+    return render(request, 'lugs/leave_lug.html', {'slug': slug})
 
 
-def lugMembersView(request, pk):
-    lug = get_object_or_404(Lug, pk=pk)
+def lugMembersView(request, slug):
+    lug = get_object_or_404(Lug, slug=slug)
     members = lug.profile_set.all()
 
     return render(request, 'lugs/lug_members_list.html', {'lug': lug, 'members': members})

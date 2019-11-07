@@ -15,7 +15,7 @@
             <h4>Member of these LUGs:</h4>
             <p></p>
                 {% for lug in user_lugs %}
-                    <li><a href="{% url 'lug-detail' lug.id %}">{{ lug.name }}</a></li>
+                    <li><a href="{% url 'lug-detail' lug.slug %}">{{ lug.name }}</a></li>
                 {% endfor%}
             
             

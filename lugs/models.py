@@ -9,7 +9,7 @@ from PIL import Image
 
 class Lug(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False)
-    slug = models.SlugField(max_length=100, null=True, blank=True)
+    slug = models.SlugField(max_length=128, null=False, blank=False, default='')
     description = models.TextField(null=True, blank=True)
     website = models.URLField(null=True, blank=True, default='http://linuxlugs.com')
     cover_image = models.ImageField(default='lug_default_photo.png', upload_to='lug_cover_images')
@@ -33,7 +33,7 @@ class Lug(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('lug-detail', kwargs={'pk': self.pk})
+        return reverse('lug-detail', kwargs={'slug': self.slug})
 
     def save(self):
         super().save()

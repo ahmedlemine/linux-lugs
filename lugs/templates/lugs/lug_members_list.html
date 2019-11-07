@@ -1,7 +1,7 @@
 {% extends "lugs/base.html" %}
 {% block content %}
 <div>
-    <h1>Members of <a href="{% url 'lug-detail' lug.id %}">{{lug.name}}</a></h1>
+    <h1>Members of <a href="{% url 'lug-detail' lug.slug %}">{{lug.name}}</a></h1>
 </div>
 <div>
 {% for member in members %}

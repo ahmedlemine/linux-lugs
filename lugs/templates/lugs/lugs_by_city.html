@@ -8,7 +8,7 @@
         <div class="lug-metadata">
             <a class="mr-2" href="#">{{ lug.city }}, {{ lug.country }} </a>
         </div>
-        <h2><a class="lug-title" href="{% url 'lug-detail' lug.id %}">{{ lug.name }}</a></h2>
+        <h2><a class="lug-title" href="{% url 'lug-detail' lug.slug %}">{{ lug.name }}</a></h2>
         <p class="lug-content">{{ lug.description }}</p>
         <div>
                 <p><strong>Added by: </strong><a class="mr-2" href="{% url 'public-profile' object.added_by.username %}">{{ object.added_by }}</a></p>

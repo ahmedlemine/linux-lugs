@@ -8,7 +8,7 @@
         <div class="lug-metadata">
             <a class="mr-2" href="#">{{ lug.city }}, {{ lug.country }} </a>
         </div>
-        <h2><a class="lug-title" href="{% url 'lug-detail' lug.id %}">{{ lug.name }}</a></h2>
+        <h2><a class="lug-title" href="{% url 'lug-detail' lug.slug %}">{{ lug.name }}</a></h2>
         <p class="lug-content">{{ lug.description }}</p>
         <div class="d-flex justify-content-between align-items-center">
             <small class="text-muted">
@@ -18,7 +18,7 @@
                 
             </small>
             <div class="btn-group">
-                <a class="btn btn-primary" href="{% url 'lug-detail' lug.pk %}">View</a>
+                <a class="btn btn-primary" href="{% url 'lug-detail' lug.slug %}">View</a>
             </div>
         </div>
     </div>
