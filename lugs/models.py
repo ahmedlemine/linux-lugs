@@ -1,13 +1,15 @@
 from django.db import models
+from django.db.models.signals import pre_save
 from django.utils import timezone
 from django.contrib.auth.models import User
+from linux_lugs.utils import unique_slug_generator
 from django.urls import reverse
 from PIL import Image
 
 
 class Lug(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False)
-    # slug = models.SlugField(max_length=256, default='', editable=False, null=False, blank=False)
+    slug = models.SlugField(max_length=100, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     website = models.URLField(null=True, blank=True, default='http://linuxlugs.com')
     cover_image = models.ImageField(default='lug_default_photo.png', upload_to='lug_cover_images')
@@ -42,3 +44,10 @@ class Lug(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.cover_image.path)
+
+# a pre-save signal to generate a slug and save it
+def slug_generator(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
+pre_save.connect(slug_generator, sender=Lug)
