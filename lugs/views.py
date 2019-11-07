@@ -63,6 +63,11 @@ class LugUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         'description',
         'cover_image',
         'website',
+        'gettogether_page',
+        'youtube_channel',
+        'twitter',
+        'facebook',
+        'telegram',
         'contact_person',
         'contact_info',
         'donate_link'
@@ -81,6 +86,7 @@ class LugUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class LugDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Lug
     success_url = '/'
+
     def test_func(self):
         lug = self.get_object()
         if self.request.user == lug.added_by:
@@ -92,7 +98,7 @@ class MyLugsListView(LoginRequiredMixin, ListView):
     model = Lug
     template_name = 'lugs/my_lugs.html'
     context_object_name = 'lugs'
-    paginate_by = 10
+    paginate_by = 25
 
     def get_queryset(self):
         current_user = self.request.user
@@ -105,7 +111,7 @@ class LugsByCityListView(ListView):
     model = Lug
     template_name = 'lugs/lugs_by_city.html'
     context_object_name = 'lugs'
-    paginate_by = 10
+    paginate_by = 25
 
     def get_queryset(self):
         # lug_city = get_object_or_404(Lug, city=self.kwargs.get('city'))
@@ -120,7 +126,7 @@ class LugsByCountryListView(ListView):
     model = Lug
     template_name = 'lugs/lugs_by_country.html'
     context_object_name = 'lugs'
-    paginate_by = 10
+    paginate_by = 25
 
     def get_queryset(self):
         # lug_country = Lug country=self.kwargs.get('country'))

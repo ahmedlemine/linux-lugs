@@ -8,6 +8,10 @@ class Profile(models.Model):
     real_name = models.CharField(max_length=100, null=True, blank=True, default="")
     image = models.ImageField(default='default.jpeg', upload_to='profile_pics')
     lugs = models.ManyToManyField(Lug)
+    twitter = models.URLField(default="", null=True, blank=True)
+    facebook = models.URLField(default="", null=True, blank=True)
+    youtube_channel = models.URLField(default="", null=True, blank=True)
+
 
     def __str__(self):
         return self.user.username

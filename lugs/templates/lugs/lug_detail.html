@@ -20,6 +20,7 @@
             <p><i class="fa fa-calendar-plus-o fa-lg" aria-hidden="true"></i><strong> Added On: </strong>{{ lug.date_added|date:"d, n, Y" }}</p>
             <p><i class="fa fa-refresh fa-lg" aria-hidden="true"></i><strong> Last Updated: </strong>  {{ lug.last_updated|date:"d, n, Y" }}</p>
             <p><i class="fa fa-home fa-lg" aria-hidden="true"></i><strong> Website: </strong><a href="{{ lug.website }}">{{ lug.website }}</a></p>
+            <p><i class="fa fa-youtube fa-lg" aria-hidden="true"></i><strong> Youtube Channel: </strong><a href="{{ lug.youtube_channel }}">{{ lug.youtube_channel }}</a></p>
             <p><i class="fa fa-address-book fa-lg" aria-hidden="true"></i><strong> Contact Person: </strong>{{ lug.contact_person }}</p>
             <p><i class="fa fa-address-card fa-lg" aria-hidden="true"></i><strong> Contact Info: </strong>{{ lug.contact_info }}</p>
             <p><i class="fa fa-paypal fa-lg" aria-hidden="true"></i><strong> Donate: </strong><a href="{{ lug.donate_link }}">{{ lug.donate_link }}</a></p>
@@ -51,30 +52,4 @@
 </lug>
    
 
- <!-- side bar-->
- <div class="col-md-4">
-        <div class="content-section">
-            <h3>About this LUG</h3>
-            <p class='text-muted'>some text.
-                <p><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>
-                <a href="#">{{ lug.city }}, {{ lug.country }} </a></p>
-                <p><i class="fa fa-user fa-lg" aria-hidden="true"></i><strong> Added by: </strong><a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}">{{ lug.added_by }}</a></p>
-                <p><i class="fa fa-calendar-plus-o fa-lg" aria-hidden="true"></i><strong> Added On: </strong>{{ lug.date_added|date:"d, n, Y" }}</p>
-                <p><i class="fa fa-refresh fa-lg" aria-hidden="true"></i><strong> Last Updated: </strong>  {{ lug.last_updated|date:"d, n, Y" }}</p>
-                <p><i class="fa fa-home fa-lg" aria-hidden="true"></i><strong> Website: </strong><a href="{{ lug.website }}">{{ lug.website }}</a></p>
-                <p><i class="fa fa-address-book fa-lg" aria-hidden="true"></i><strong> Contact Person: </strong>{{ lug.contact_person }}</p>
-                <p><i class="fa fa-address-card fa-lg" aria-hidden="true"></i><strong> Contact Info: </strong>{{ lug.contact_info }}</p>
-                <p><i class="fa fa-paypal fa-lg" aria-hidden="true"></i><strong> Donate: </strong><a href="{{ lug.donate_link }}">{{ lug.donate_link }}</a></p>
-            
-                <ul class="list-group">
-                    <li class="list-group-item list-group-item-light">Latest Posts</li>
-                    <li class="list-group-item list-group-item-light">Announcements</li>
-                    <li class="list-group-item list-group-item-light">Calendars</li>
-                    <li class="list-group-item list-group-item-light">etc</li>
-                </ul>
-            </p>
-        </div>
-    </div>
-        <!-- end side bar-->
-
-    {% endblock content %}
+{% endblock content %}

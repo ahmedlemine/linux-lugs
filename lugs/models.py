@@ -7,20 +7,21 @@ from PIL import Image
 
 class Lug(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False)
+    # slug = models.SlugField(max_length=256, default='', editable=False, null=False, blank=False)
     description = models.TextField(null=True, blank=True)
     website = models.URLField(null=True, blank=True, default='http://linuxlugs.com')
     cover_image = models.ImageField(default='lug_default_photo.png', upload_to='lug_cover_images')
-    # TODO: make it a list
     country = models.CharField(max_length=100, null=False, blank=False)
     province = models.CharField(max_length=100, null=True, blank=True)
     city = models.CharField(max_length=100, null=False, blank=False)
-    # location on map (lat, long)
-    # time
     contact_person = models.CharField(max_length=100, null=True, blank=True)
-    # TODO: make it a list
     contact_info = models.TextField(null=True, blank=True)
-    # youtube_channel = models.URLField(null=True, blank=True)
     donate_link = models.URLField(null=True, blank=True)
+    gettogether_page = models.URLField(default="", null=True, blank=True)
+    youtube_channel = models.URLField(default="", null=True, blank=True)
+    twitter = models.URLField(default="", null=True, blank=True)
+    facebook = models.URLField(default="", null=True, blank=True)
+    telegram = models.URLField(default="", null=True, blank=True)
     added_by = models.ForeignKey(User, on_delete=models.CASCADE)
     date_added = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)

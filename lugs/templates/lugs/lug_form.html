@@ -10,7 +10,10 @@
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-success" type="submit">Save</button>
+                <!-- neccessary for new lug form to work with a delete button-->
+                {% if lug.id %}
                 <a class="btn btn-danger" href="{% url 'lug-delete' lug.id %}">Delete LUG</a>
+                {% endif %}
             </div>
         </form>
     </div>
