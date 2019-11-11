@@ -46,7 +46,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarUserMenuLink" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <img class="rounded-circle mr-1" src="{{ user.profile.image.url }}"
-                                    height="24px" />{{ user }}
+                                    height="24px" />
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarUserMenuLink">
                                 <a class="dropdown-item" href="{% url 'profile' %}"><i class="fa fa-user-circle"
@@ -59,7 +59,7 @@
                         </div>
                         {% else %}
                         <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                        <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                        <a class="nav-item nav-link" href="{% url 'register' %}">Sign Up</a>
                         {% endif %}
                     </div>
                 </div>
