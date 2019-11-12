@@ -38,8 +38,6 @@ class LugCreateView(LoginRequiredMixin, CreateView):
     model = Lug
     fields = [
         'name',
-        'country',
-        'province',
         'city',
         'description',
         'cover_image',
@@ -57,8 +55,6 @@ class LugUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Lug
     fields = [
         'name',
-        'country',
-        'province',
         'city',
         'description',
         'cover_image',
