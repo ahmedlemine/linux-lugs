@@ -1,5 +1,3 @@
-
-
 from django.db import models
 from django.db.models.signals import pre_save
 from django.utils import timezone
@@ -17,9 +15,6 @@ class Lug(models.Model):
     website = models.URLField(null=True, blank=True, default='http://linuxlugs.com')
     cover_image = models.ImageField(default='lug_default_photo.png', upload_to='lug_cover_images')
     city = models.ForeignKey(City, on_delete=models.CASCADE)
-    # country = models.CharField(max_length=100, null=False, blank=False)
-    # province = models.CharField(max_length=100, null=True, blank=True)
-    # city = models.CharField(max_length=100, null=False, blank=False)
     contact_person = models.CharField(max_length=100, null=True, blank=True)
     contact_info = models.TextField(null=True, blank=True)
     donate_link = models.URLField(null=True, blank=True)
