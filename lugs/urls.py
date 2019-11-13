@@ -7,7 +7,6 @@ from .views import (LugListView,
                     LugsByUserListView,
                     MyLugsListView,
                     LugsByCityListView,
-                    LugsByCountryListView,
                     )
 from . import views
 
@@ -19,8 +18,7 @@ urlpatterns = [
     path('new-lug/', LugCreateView.as_view(), name='lug-create'),
     path('lug/<slug:slug>/update', LugUpdateView.as_view(), name='lug-update'),
     path('lug/<slug:slug>/delete', LugDeleteView.as_view(), name='lug-delete'),
-    path('lugs-in-city/<str:city>/', LugsByCityListView.as_view(), name='lugs-by-city'),
-    path('lugs-in-country/<str:country>/', LugsByCountryListView.as_view(), name='lugs-by-country'),    
+    path('lugs-in-city/<int:city_id>/', LugsByCityListView.as_view(), name='lugs-by-city'),
     path('about/', views.about, name='lugs-about'),
     path('join-lug/<slug:slug>/', views.joinLug, name='join-lug'),
     path('leave-lug/<slug:slug>/', views.leaveLug, name='leave-lug'),

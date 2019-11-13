@@ -102,32 +102,15 @@ class MyLugsListView(LoginRequiredMixin, ListView):
 
 
 class LugsByCityListView(ListView):
-    # TODO : look for city in a list of world cities, if not return error
-    # fix space issue in city name
     model = Lug
     template_name = 'lugs/lugs_by_city.html'
     context_object_name = 'lugs'
     paginate_by = 25
 
     def get_queryset(self):
-        # lug_city = get_object_or_404(Lug, city=self.kwargs.get('city'))
-        # lug_city = Lug.objects.filter(city=self.kwargs.get('city').first()
-        lugs = Lug.objects.filter(city=self.kwargs['lug_city']).order_by('-date_added')
-
-        return lugs
-
-class LugsByCountryListView(ListView):
-    # TODO : look for city in a list of world countries, if not return error
-    # fix space and casing issue in country name
-    model = Lug
-    template_name = 'lugs/lugs_by_country.html'
-    context_object_name = 'lugs'
-    paginate_by = 25
-
-    def get_queryset(self):
-        # lug_country = Lug country=self.kwargs.get('country'))
-        lugs = Lug.objects.filter(country=self.kwargs['country']).order_by('-date_added')
-        # lugs = Lug.objects.filter(country=lug_country).order_by('-date_added')
+        city_id = self.kwargs.get('city_id')
+        # city = get_object_or_404(Lug, city_id=self.kwargs.get('city_id'))
+        lugs = Lug.objects.filter(city_id=city_id).order_by('-date_added')
         return lugs
 
 

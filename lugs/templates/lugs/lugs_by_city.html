@@ -6,14 +6,14 @@
     <img class="lug-img" src="{{ lug.cover_image.url }}" alt="">
     <div class="media-body">
         <div class="lug-metadata">
-            <a class="mr-2" href="#">{{ lug.city }}, {{ lug.country }} </a>
+            <a class="mr-2" href="#">{{ lug.city }} </a>
         </div>
         <h2><a class="lug-title" href="{% url 'lug-detail' lug.slug %}">{{ lug.name }}</a></h2>
         <p class="lug-content">{{ lug.description }}</p>
         <div>
-                <p><strong>Added by: </strong><a class="mr-2" href="{% url 'public-profile' object.added_by.username %}">{{ object.added_by }}</a></p>
-                <p><strong>Added On: </strong>{{ object.date_added|date:"F d, Y" }}</p>
-                <p><strong>Last Updated: </strong>  {{ object.last_updated|date:"F d, Y" }}</p>
+                <p><strong>Added by: </strong><a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}">{{ lug.added_by }}</a></p>
+                <p><strong>Added On: </strong>{{ lug.date_added|date:"F d, Y" }}</p>
+                <p><strong>Last Updated: </strong>  {{ lug.last_updated|date:"F d, Y" }}</p>
         </div>
     </div>
 </lug>
