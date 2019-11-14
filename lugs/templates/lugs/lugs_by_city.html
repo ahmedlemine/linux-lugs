@@ -1,6 +1,6 @@
 {% extends "lugs/base.html" %}
 {% block content %}
-<h1 class="mb-3">Linux User Groups in {{ view.kwargs.city }} ({{ page_obj.paginator.count }})</h1>
+<h3 class="mb-3">Found ({{ lugs.count }}) Linux User Group(s) in <strong>{{ lugs.first.city }}</strong></h3>
 {% for lug in lugs %}
 <lug class="media content-section">
     <img class="lug-img" src="{{ lug.cover_image.url }}" alt="">

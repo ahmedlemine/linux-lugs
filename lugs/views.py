@@ -9,7 +9,9 @@ from django.views.generic import (ListView,
                                   UpdateView,
                                   DeleteView
                                   )
+from .forms import LugForm
 from .models import Lug
+from cities_light.models import City
 
 
 class LugListView(ListView):
@@ -34,7 +36,6 @@ class LugDetailView(DetailView):
     context_object_name = 'lug'
 
 class LugCreateView(LoginRequiredMixin, CreateView):
-    # TODO limit user's LUG to 3
     model = Lug
     fields = [
         'name',
@@ -115,11 +116,10 @@ class LugsByCityListView(ListView):
 
 
 @login_required
-def joinLug(request, slug, method=['POST', 'GET']):
+def joinLug(request, slug):
     user = request.user.profile
     lug = get_object_or_404(Lug, slug=slug)
-    # in_lug = is_in_lug(user, lug)
-    # lug = Lug.objects.get(slug=slug)    
+ 
     if request.method == 'POST':
         if user not in lug.profile_set.all():
         # if not in_lug:
@@ -134,13 +134,11 @@ def joinLug(request, slug, method=['POST', 'GET']):
 
 
 @login_required
-def leaveLug(request, slug, method=['POST', 'GET']):
+def leaveLug(request, slug):
     user = request.user.profile
     lug = get_object_or_404(Lug, slug=slug)
-    # in_lug = is_in_lug(user, lug)
     if request.method == 'POST':
         if user in lug.profile_set.all():
-        # if in_lug:
             user.lugs.remove(lug)
             messages.success(request, f'Your have successfully left this LUG')            
             return redirect('lug-detail', slug=slug)
@@ -159,3 +157,27 @@ def lugMembersView(request, slug):
 
 def about(request):
     return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})
+
+
+
+def createLug(request):
+    user = request.user
+
+    if request.method == 'POST':
+        form = LugForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_lug = form.save(commit=False)
+            creator = User.objects.filter(username=user.username).first()
+            new_lug.added_by = creator
+            new_lug.save()
+            messages.success(request, f'Your new LUG has been successfully created. You can Edit the LUG to add more details.')
+            return redirect('/')
+        else:
+            form = LugForm(request.POST)
+    
+    # if request.method == 'GET':
+    form = LugForm()
+    context = {
+        'form': form,
+        }
+    return render(request, 'lugs/create_lug.html', context)

@@ -1,8 +1,23 @@
 {% extends "lugs/base.html" %}
 {% block content %}
-<div class="row">
-{% for lug in lugs %}
 
+
+<div class="row">
+
+        <div class="alert alert-info">
+            Find Linux User Groups Near You
+            {% if user.is_authenticated and user.profile.city != None %}
+                <a class="btn btn-sm btn-primary" href="{% url 'lugs-by-city' user.profile.city_id %}">Teams Nearby</a>
+            {% else %}
+                <a class="btn btn-sm btn-primary" href="#">Teams Nearby</a>
+            {% endif %}
+            
+        </div>
+</div>
+
+<div class="row">
+           
+{% for lug in lugs %}
 
 <div class="col-md-4">
     <div class="card mb-4 box-shadow">
