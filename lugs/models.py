@@ -17,7 +17,7 @@ class Lug(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     contact_person = models.CharField(verbose_name='Contact Person', max_length=100, null=True, blank=True)
     contact_info = models.TextField(verbose_name='Contact Info', null=True, blank=True)
-    donate_link = models.URLField(verbose_name='Donation Page URL', null=True, blank=True)
+    donate_link = models.URLField(verbose_name='Donation Page URL', default='', null=True, blank=True)
     gettogether_page = models.URLField(verbose_name='GetTogether Page', default="", null=True, blank=True)
     youtube_channel = models.URLField(default="", null=True, blank=True)
     twitter = models.URLField(default="", null=True, blank=True)

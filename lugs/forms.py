@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from .models import Lug
+from cities_light.models import City
 
 
 class LugForm(ModelForm):

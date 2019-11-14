@@ -117,13 +117,12 @@ class LugsByCityListView(ListView):
 
 @login_required
 def joinLug(request, slug):
-    user = request.user.profile
+    profile = request.user.profile
     lug = get_object_or_404(Lug, slug=slug)
  
     if request.method == 'POST':
-        if user not in lug.profile_set.all():
-        # if not in_lug:
-            user.lugs.add(lug)
+        if profile not in lug.profile_set.all():
+            profile.lugs.add(lug)
             messages.success(request, f'Your are now a member of this LUG')            
             return redirect('lug-detail', slug=slug)
         else:
@@ -135,11 +134,16 @@ def joinLug(request, slug):
 
 @login_required
 def leaveLug(request, slug):
-    user = request.user.profile
+    user = request.user
+    profile = user.profile
     lug = get_object_or_404(Lug, slug=slug)
+
     if request.method == 'POST':
-        if user in lug.profile_set.all():
-            user.lugs.remove(lug)
+        if profile in lug.profile_set.all():
+            if lug.added_by == user:
+                messages.warning(request, f'Error: You can NOT leave LUGs you created!')            
+                return redirect('lug-detail', slug=slug)
+            profile.lugs.remove(lug)
             messages.success(request, f'Your have successfully left this LUG')            
             return redirect('lug-detail', slug=slug)
         else:
@@ -155,10 +159,6 @@ def lugMembersView(request, slug):
 
     return render(request, 'lugs/lug_members_list.html', {'lug': lug, 'members': members})
 
-def about(request):
-    return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})
-
-
 
 def createLug(request):
     user = request.user
@@ -170,14 +170,23 @@ def createLug(request):
             creator = User.objects.filter(username=user.username).first()
             new_lug.added_by = creator
             new_lug.save()
+            creator.profile.lugs.add(new_lug)
+            form = LugForm()
             messages.success(request, f'Your new LUG has been successfully created. You can Edit the LUG to add more details.')
-            return redirect('/')
+            return redirect('lug-detail', slug=new_lug.slug)
         else:
             form = LugForm(request.POST)
     
-    # if request.method == 'GET':
     form = LugForm()
     context = {
         'form': form,
         }
     return render(request, 'lugs/create_lug.html', context)
+
+def joinUserToHisLug(request, user):
+    pass #TODO
+
+
+
+def about(request):
+    return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})
