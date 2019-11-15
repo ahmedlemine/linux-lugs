@@ -1,8 +1,9 @@
 {% extends "lugs/base.html" %}
 {% block content %}
 <lug class="media content-section">
-    <img class="lug-img" src="{{ lug.cover_image.url }}" alt="">
+
     <div class="media-body">
+            <img class="lug-img" src="{{ lug.cover_image.url }}" alt="">
         <div class="lug-metadata">
             <h2 class="lug-title">{{ lug.name }}</h2>
             {% if lug.added_by == user %}

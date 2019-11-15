@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from linux_lugs.utils import unique_slug_generator
 from django.urls import reverse
 from PIL import Image
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 from cities_light.models import City
 
 
@@ -13,7 +15,11 @@ class Lug(models.Model):
     slug = models.SlugField(max_length=128, null=False, blank=False, default='')
     description = models.TextField(verbose_name='Description', null=True, blank=True)
     website = models.URLField(verbose_name='LUG Website', null=True, blank=True, default='http://linuxlugs.com')
-    cover_image = models.ImageField(verbose_name='LUG Cover Image', default='lug_default_photo.png', upload_to='lug_cover_images')
+    # cover_image = models.ImageField(verbose_name='LUG Cover Image', default='lug_default_photo.png', upload_to='lug_cover_images')
+    cover_image = ProcessedImageField(upload_to='lug_cover_images',
+                                           processors=[ResizeToFill(338, 200)],
+                                           format='JPEG',
+                                           options={'quality': 60})
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     contact_person = models.CharField(verbose_name='Contact Person', max_length=100, null=True, blank=True)
     contact_info = models.TextField(verbose_name='Contact Info', null=True, blank=True)
