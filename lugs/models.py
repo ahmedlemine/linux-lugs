@@ -15,8 +15,7 @@ class Lug(models.Model):
     slug = models.SlugField(max_length=128, null=False, blank=False, default='')
     description = models.TextField(verbose_name='Description', null=True, blank=True)
     website = models.URLField(verbose_name='LUG Website', null=True, blank=True, default='http://linuxlugs.com')
-    # cover_image = models.ImageField(verbose_name='LUG Cover Image', default='lug_default_photo.png', upload_to='lug_cover_images')
-    cover_image = ProcessedImageField(upload_to='lug_cover_images',
+    cover_image = ProcessedImageField(verbose_name='LUG Cover Image', default='lug_default_photo.png', upload_to='lug_cover_images',
                                            processors=[ResizeToFill(338, 200)],
                                            format='JPEG',
                                            options={'quality': 60})
@@ -40,15 +39,6 @@ class Lug(models.Model):
     def get_absolute_url(self):
         return reverse('lug-detail', kwargs={'slug': self.slug})
 
-    def save(self):
-        super().save()
-
-        img = Image.open(self.cover_image.path)
-
-        if img.height > 300 or img.width > 300:
-            output_size = (300, 300)
-            img.thumbnail(output_size)
-            img.save(self.cover_image.path)
 
 # a pre-save signal to generate a slug and save it
 def slug_generator(sender, instance, *args, **kwargs):
