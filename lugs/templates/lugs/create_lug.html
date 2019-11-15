@@ -12,11 +12,6 @@
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-success" type="submit">Save</button>
-                <!-- neccessary for new lug form to work with a delete button-->
-                {% if lug.slug %}
-                <a class="btn btn-secondary" href="{% url 'lug-detail' lug.slug %}">Cancel</a>
-                <a class="btn btn-danger" href="{% url 'lug-delete' lug.slug %}">Delete LUG</a>
-                {% endif %}
             </div>
         </form>
     </div>

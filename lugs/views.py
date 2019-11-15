@@ -129,7 +129,7 @@ def joinLug(request, slug):
             messages.warning(request, f'Your are already a member of this LUG!')
             return redirect('lug-detail', slug=slug)
 
-    return render(request, 'lugs/join_lug.html', {'slug': slug})
+    return render(request, 'lugs/join_lug.html', {'slug': slug, 'title': f'Join LUG {lug.name}' })
 
 
 @login_required
@@ -150,13 +150,13 @@ def leaveLug(request, slug):
             messages.warning(request, f'Your are not a member of this LUG!')
             return redirect('lug-detail', slug=slug)
 
-    return render(request, 'lugs/leave_lug.html', {'slug': slug})
+    return render(request, 'lugs/leave_lug.html', {'slug': slug, 'title': f'Leave LUG {lug.name}'})
 
 
 def lugMembersView(request, slug):
     lug = get_object_or_404(Lug, slug=slug)
     members = lug.profile_set.all()
-    context = {'lug': lug, 'members': members}
+    context = {'lug': lug, 'members': members, 'title': f'Members of LUG {lug.name}'}
 
     return render(request, 'lugs/lug_members_list.html', context)
 
@@ -181,6 +181,7 @@ def createLug(request):
     form = LugForm()
     context = {
         'form': form,
+        'title': 'Add a new Linux LUG' 
         }
     return render(request, 'lugs/create_lug.html', context)
 
@@ -189,6 +190,7 @@ def createLug(request):
 def editLug(request, slug):
     lug = get_object_or_404(Lug, slug=slug)
     user = request.user
+
     if lug.added_by == user:
         if request.method == 'POST':
             form = LugForm(request.POST, request.FILES, instance=lug)
@@ -199,12 +201,8 @@ def editLug(request, slug):
             else:
                 form = LugForm(request.POST)
     
-    
         form = LugForm(instance=lug)
-        context = {
-            'form': form,
-            }
-        return render(request, 'lugs/edit_lug.html', context)
+        return render(request, 'lugs/edit_lug.html', {'form': form, 'lug': lug, 'title': f'Update LUG {lug.name}'})
     else:
         messages.warning(request, f'You can edit only LUGs you have created')
         return redirect('lug-detail', slug=lug.slug)
