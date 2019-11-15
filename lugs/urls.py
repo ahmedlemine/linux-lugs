@@ -23,5 +23,6 @@ urlpatterns = [
     path('join-lug/<slug:slug>/', views.joinLug, name='join-lug'),
     path('leave-lug/<slug:slug>/', views.leaveLug, name='leave-lug'),
     path('lug-members/<slug:slug>/', views.lugMembersView, name='lug-members'),
-    path('create_lug/', views.createLug, name='create-lug')
+    path('create_lug/', views.createLug, name='create-lug'),
+    path('edit_lug/<slug:slug>/', views.editLug, name='edit-lug')
 ]

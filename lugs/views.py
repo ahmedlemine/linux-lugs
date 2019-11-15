@@ -156,10 +156,11 @@ def leaveLug(request, slug):
 def lugMembersView(request, slug):
     lug = get_object_or_404(Lug, slug=slug)
     members = lug.profile_set.all()
+    context = {'lug': lug, 'members': members}
 
-    return render(request, 'lugs/lug_members_list.html', {'lug': lug, 'members': members})
+    return render(request, 'lugs/lug_members_list.html', context)
 
-
+@login_required
 def createLug(request):
     user = request.user
 
@@ -183,9 +184,30 @@ def createLug(request):
         }
     return render(request, 'lugs/create_lug.html', context)
 
-def joinUserToHisLug(request, user):
-    pass #TODO
 
+@login_required
+def editLug(request, slug):
+    lug = get_object_or_404(Lug, slug=slug)
+    user = request.user
+    if lug.added_by == user:
+        if request.method == 'POST':
+            form = LugForm(request.POST, request.FILES, instance=lug)
+            if form.is_valid():
+                form.save()
+                messages.success(request, f'Your changes have been saved.')
+                return redirect('lug-detail', slug=lug.slug)
+            else:
+                form = LugForm(request.POST)
+    
+    
+        form = LugForm(instance=lug)
+        context = {
+            'form': form,
+            }
+        return render(request, 'lugs/edit_lug.html', context)
+    else:
+        messages.warning(request, f'You can edit only LUGs you have created')
+        return redirect('lug-detail', slug=lug.slug)
 
 
 def about(request):

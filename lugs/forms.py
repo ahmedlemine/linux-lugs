@@ -16,3 +16,5 @@ class LugForm(ModelForm):
         'contact_info',
         'donate_link'
         ]
+
+
