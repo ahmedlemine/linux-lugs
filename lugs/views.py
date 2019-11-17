@@ -14,12 +14,21 @@ from .models import Lug
 from cities_light.models import City
 
 
-class LugListView(ListView):
-    model = Lug
-    template_name = 'lugs/home.html'
-    context_object_name = 'lugs'
-    ordering = ['-date_added']
-    paginate_by = 25
+# class LugListView(ListView):
+    # model = Lug
+    # template_name = 'lugs/home.html'
+    # context_object_name = 'lugs'
+    # ordering = ['-date_added']
+    # paginate_by = 25
+
+def LugListView(request):
+    lugs = Lug.objects.all().order_by('-date_added')
+    query = request.GET.get('q')
+    if query:
+        lugs = lugs.filter(name__icontains=query)
+    context = {'lugs': lugs}
+    return render(request, 'lugs/home.html', context)
+
 
 class LugsByUserListView(ListView):
     model = Lug
@@ -102,7 +111,7 @@ class MyLugsListView(LoginRequiredMixin, ListView):
         return Lug.objects.filter(added_by=current_user).order_by('-date_added')
 
 
-class LugsByCityListView(ListView):
+class LugsByCityListView(ListView): #use try/except
     model = Lug
     template_name = 'lugs/lugs_by_city.html'
     context_object_name = 'lugs'
@@ -141,7 +150,7 @@ def leaveLug(request, slug):
     if request.method == 'POST':
         if profile in lug.profile_set.all():
             if lug.added_by == user:
-                messages.warning(request, f'Error: You can NOT leave LUGs you created!')            
+                messages.warning(request, f'You can NOT leave LUGs you created!')            
                 return redirect('lug-detail', slug=slug)
             profile.lugs.remove(lug)
             messages.success(request, f'Your have successfully left this LUG')            

@@ -1,15 +1,18 @@
 {% extends "lugs/base.html" %}
 {% block content %}
-
-
 <div class="row">
-
+        
         <div class="alert alert-info">
             Find Linux User Groups Near You
             {% if user.is_authenticated and user.profile.city != None %}
-                <a class="btn btn-sm btn-primary" href="{% url 'lugs-by-city' user.profile.city_id %}">Teams Nearby</a>
+                <a class="btn btn-sm btn-primary" href="{% url 'lugs-by-city' user.profile.city_id %}">Nearby LUGs</a>
             {% else %}
-                <a class="btn btn-sm btn-primary" href="#">Teams Nearby</a>
+                <form action="" method="GET">
+                    <fieldset class="form-group">
+                        <input type="text" value="{{ request.GET.q }}" name="q"">
+                        <input class="btn btn-sm btn-primary" type="submit" value="Search">
+                    </fieldset>
+                </form>
             {% endif %}
             
         </div>
