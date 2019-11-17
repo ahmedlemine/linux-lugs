@@ -4,6 +4,9 @@
     <div class="media">
         <img class="rounded-circle account-img" src="{{ user_public.profile.image.url }}">
         <div class="media-body">
+            {% if user == user_public %}
+            <a class="btn btn-success" href="{% url 'edit-profile' %}">Edit Profile</a>
+            {% endif %}
             <div class="ml-4">
                 <h4>{{ user_public.username }}</h4>
                 <p>LinuxLugs Name: {{ user_public.username }}</p>

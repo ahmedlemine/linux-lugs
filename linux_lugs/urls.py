@@ -29,8 +29,8 @@ urlpatterns = [
         'register/', user_views.register,
          name="register"),
     path(
-        'profile/', user_views.profile,
-         name="profile"),
+        'edit_profile/', user_views.edit_profile,
+         name="edit-profile"),
     path(
         'profile/<str:username>', user_views.user_public_profile,
          name="public-profile"),
