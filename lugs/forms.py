@@ -9,12 +9,17 @@ class LugForm(ModelForm):
         fields = [
         'name',
         'city',
+        'meetup_place',
         'description',
         'cover_image',
         'website',
         'contact_person',
         'contact_info',
-        'donate_link'
+        'donate_link',
+        'youtube_channel',
+        'twitter',
+        'facebook',
+        'telegram'
         ]
 
 

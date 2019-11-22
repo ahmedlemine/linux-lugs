@@ -182,7 +182,7 @@ def createLug(request):
             new_lug.save()
             creator.profile.lugs.add(new_lug)
             form = LugForm()
-            messages.success(request, f'Your new LUG has been successfully created. You can Edit the LUG to add more details.')
+            messages.success(request, f'Your new LUG has been successfully created.')
             return redirect('lug-detail', slug=new_lug.slug)
         else:
             form = LugForm(request.POST)
