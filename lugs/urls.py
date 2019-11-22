@@ -1,8 +1,8 @@
 from django.urls import path
 from .views import (LugListView, 
                     LugDetailView,
-                    LugCreateView,
-                    LugUpdateView,
+                    # LugCreateView,
+                    # LugUpdateView,
                     LugDeleteView,
                     LugsByUserListView,
                     MyLugsListView,

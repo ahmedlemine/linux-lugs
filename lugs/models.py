@@ -13,17 +13,17 @@ from cities_light.models import City
 class Lug(models.Model):
     name = models.CharField(verbose_name='LUG Name', max_length=100, null=False, blank=False)
     slug = models.SlugField(max_length=128, null=False, blank=False, default='')
-    description = models.TextField(verbose_name='Description', null=True, blank=True)
+    description = models.TextField(verbose_name='Description', help_text='About LUG, activities, focus, agenda, timing, etc.', null=True, blank=True)
     website = models.URLField(verbose_name='LUG Website', null=True, blank=True, default='http://linuxlugs.com')
-    cover_image = ProcessedImageField(verbose_name='LUG Cover Image', default='lug_default_photo.png', upload_to='lug_cover_images',
+    cover_image = ProcessedImageField(verbose_name='LUG Cover Image/Logo', default='lug_default_photo.png', upload_to='lug_cover_images',
                                            processors=[ResizeToFill(338, 200)],
                                            format='JPEG',
                                            options={'quality': 60})
     city = models.ForeignKey(City, on_delete=models.CASCADE)
-    meetup_place = models.CharField(verbose_name='Meetup Place', max_length=250, null=True, blank=True)
+    meetup_place = models.CharField(verbose_name='Meetup Place', help_text='Place where LUG members meet (restaurant, coffee shop, etc.)', max_length=250, null=True, blank=True)
     contact_person = models.CharField(verbose_name='Contact Person', max_length=100, null=True, blank=True)
-    contact_info = models.CharField(verbose_name='Contact Info', max_length=250, null=True, blank=True)
-    donate_link = models.URLField(verbose_name='Donation Page URL', default='', null=True, blank=True)
+    contact_info = models.CharField(verbose_name='Contact Info', help_text='How to contact LUG organizers (250 characters max).', max_length=250, null=True, blank=True)
+    donate_link = models.URLField(verbose_name='Donation Page URL', help_text='Link to page where this LUG accepts donations.', default='', null=True, blank=True)
     youtube_channel = models.URLField(default='', null=True, blank=True)
     twitter = models.URLField(default='', null=True, blank=True)
     facebook = models.URLField(default='', null=True, blank=True)

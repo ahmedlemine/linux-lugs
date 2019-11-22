@@ -9,11 +9,10 @@ from cities_light.models import City
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     real_name = models.CharField(max_length=100, null=True, blank=True, default="")
-    # image = models.ImageField(default='default.jpeg', upload_to='profile_pics')
     image = ProcessedImageField(verbose_name='Profile Photo', default='default.jpeg', upload_to='profile_pics', blank=True,
                                            processors=[ResizeToFill(128, 128)],
                                            format='JPEG',
-                                           options={'quality': 60})
+                                           options={'quality': 80})
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
     lugs = models.ManyToManyField(Lug)
     twitter = models.URLField(default="", null=True, blank=True)

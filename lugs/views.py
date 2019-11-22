@@ -44,50 +44,100 @@ class LugDetailView(DetailView):
     model = Lug
     context_object_name = 'lug'
 
-class LugCreateView(LoginRequiredMixin, CreateView):
-    model = Lug
-    fields = [
-        'name',
-        'city',
-        'description',
-        'cover_image',
-        'website',
-        'contact_person',
-        'contact_info',
-        'donate_link'
-        ]
+# class LugCreateView(LoginRequiredMixin, CreateView):
+#     model = Lug
+#     fields = [
+#         'name',
+#         'city',
+#         'description',
+#         'cover_image',
+#         'website',
+#         'contact_person',
+#         'contact_info',
+#         'donate_link'
+#         ]
 
-    def form_valid(self, form):
-        form.instance.added_by = self.request.user
-        return super().form_valid(form)
+#     def form_valid(self, form):
+#         form.instance.added_by = self.request.user
+#         return super().form_valid(form)
 
-class LugUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Lug
-    fields = [
-        'name',
-        'city',
-        'description',
-        'cover_image',
-        'website',
-        'gettogether_page',
-        'youtube_channel',
-        'twitter',
-        'facebook',
-        'telegram',
-        'contact_person',
-        'contact_info',
-        'donate_link'
-        ]
+# class LugUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+#     model = Lug
+#     fields = [
+#         'name',
+#         'city',
+#         'description',
+#         'cover_image',
+#         'website',
+#         'gettogether_page',
+#         'youtube_channel',
+#         'twitter',
+#         'facebook',
+#         'telegram',
+#         'contact_person',
+#         'contact_info',
+#         'donate_link'
+#         ]
 
-    def form_valid(self, form):
-        form.instance.added_by = self.request.user
-        return super().form_valid(form)
+#     def form_valid(self, form):
+#         form.instance.added_by = self.request.user
+#         return super().form_valid(form)
 
-    def test_func(self):
-        lug = self.get_object()
-        if self.request.user == lug.added_by:
-            return True
-        return False
+#     def test_func(self):
+#         lug = self.get_object()
+#         if self.request.user == lug.added_by:
+#             return True
+#         return False
+
+
+
+@login_required
+def createLug(request):
+    user = request.user
+
+    if request.method == 'POST':
+        form = LugForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_lug = form.save(commit=False)
+            creator = User.objects.filter(username=user.username).first()
+            new_lug.added_by = creator
+            new_lug.save()
+            creator.profile.lugs.add(new_lug)
+            form = LugForm()
+            messages.success(request, f'Your new LUG has been successfully created.')
+            return redirect('lug-detail', slug=new_lug.slug)
+        else:
+            form = LugForm(request.POST)
+    
+    form = LugForm()
+    context = {
+        'form': form,
+        'title': 'Add a new Linux LUG' 
+        }
+    return render(request, 'lugs/create_lug.html', context)
+
+
+@login_required
+def editLug(request, slug):
+    lug = get_object_or_404(Lug, slug=slug)
+    user = request.user
+
+    if lug.added_by == user:
+        if request.method == 'POST':
+            form = LugForm(request.POST, request.FILES, instance=lug)
+            if form.is_valid():
+                form.save()
+                messages.success(request, f'Your changes have been saved.')
+                return redirect('lug-detail', slug=lug.slug)
+            else:
+                form = LugForm(request.POST)
+    
+        form = LugForm(instance=lug)
+        return render(request, 'lugs/edit_lug.html', {'form': form, 'lug': lug, 'title': f'Update LUG {lug.name}'})
+    else:
+        messages.warning(request, f'You can edit only LUGs you have created')
+        return redirect('lug-detail', slug=lug.slug)
+
 
 class LugDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Lug
@@ -168,53 +218,6 @@ def lugMembersView(request, slug):
     context = {'lug': lug, 'members': members, 'title': f'Members of LUG {lug.name}'}
 
     return render(request, 'lugs/lug_members_list.html', context)
-
-@login_required
-def createLug(request):
-    user = request.user
-
-    if request.method == 'POST':
-        form = LugForm(request.POST, request.FILES)
-        if form.is_valid():
-            new_lug = form.save(commit=False)
-            creator = User.objects.filter(username=user.username).first()
-            new_lug.added_by = creator
-            new_lug.save()
-            creator.profile.lugs.add(new_lug)
-            form = LugForm()
-            messages.success(request, f'Your new LUG has been successfully created.')
-            return redirect('lug-detail', slug=new_lug.slug)
-        else:
-            form = LugForm(request.POST)
-    
-    form = LugForm()
-    context = {
-        'form': form,
-        'title': 'Add a new Linux LUG' 
-        }
-    return render(request, 'lugs/create_lug.html', context)
-
-
-@login_required
-def editLug(request, slug):
-    lug = get_object_or_404(Lug, slug=slug)
-    user = request.user
-
-    if lug.added_by == user:
-        if request.method == 'POST':
-            form = LugForm(request.POST, request.FILES, instance=lug)
-            if form.is_valid():
-                form.save()
-                messages.success(request, f'Your changes have been saved.')
-                return redirect('lug-detail', slug=lug.slug)
-            else:
-                form = LugForm(request.POST)
-    
-        form = LugForm(instance=lug)
-        return render(request, 'lugs/edit_lug.html', {'form': form, 'lug': lug, 'title': f'Update LUG {lug.name}'})
-    else:
-        messages.warning(request, f'You can edit only LUGs you have created')
-        return redirect('lug-detail', slug=lug.slug)
 
 
 def about(request):

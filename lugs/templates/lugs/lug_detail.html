@@ -4,16 +4,17 @@
 <lug class="media content-section">
 
     <div class="media-body">
-            <img class="" src="{{ lug.cover_image.url }}" alt="cover image for {{lug.name}}">
         <div class="lug-metadata">
             <h2 class="lug-title">{{ lug.name }}</h2>
+            <img class="" src="{{ lug.cover_image.url }}" alt="cover image for {{lug.name}}">
+
             {% if lug.added_by == user %}
                 <div>
                     <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'lug-update' lug.slug %}">Edit</a>
                 </div>
             {% endif %}
         </div>
-        <p><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>
+        <p><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i> City: 
             <a href="{% url 'lugs-by-city' lug.city_id %}">{{ lug.city }}</a></p>
         <p class="lug-content"><strong>About this LUG: </strong>
             {{ lug.description }}</p>
