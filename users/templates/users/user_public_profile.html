@@ -2,22 +2,28 @@
 {% block content %}
 <div class="profile">
     <div class="media">
-        <img class="rounded-circle account-img" src="{{ user_public.profile.image.url }}">
+        <img class="rounded-circle account-img" src="{{ user_public.profile.image.url }}" alt="{{ user_public.profile.real_name }}">
         <div class="media-body">
             <h4>{{ user_public.username }}'s Public Profile</h4>
+
             {% if user == user_public %}
             <a class="btn btn-primary btn-sm" href="{% url 'edit-profile' %}">Edit Profile</a>
             <a class="btn btn-secondary btn-sm" href="{% url 'password_reset' %}">Reset Password</a>
-
             {% endif %}
-            
+
             <hr>
+
             <div>
+                <p>
+                    <a href="{{ user_public.profile.twitter }}"><small class="text-muted"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></small></a>
+                    <a href="{{ user_public.profile.facebook }}"><small class="text-muted"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></small></a>
+                    <a href="{{ user_public.profile.youtube_channel }}"><small class="text-muted"><i class="fa fa-youtube fa-2x" aria-hidden="true"></i></small></a>
+                </p>
                 <p><i class="fa fa-user-circle fa-lg" aria-hidden="true"></i> LinuxLUGs Name: {{ user_public.username }}</p>
                 <p><i class="fa fa-address-card fa-lg" aria-hidden="true"></i> Real Name: {{ user_public.profile.real_name }}</p>
                 <p><i class="fa fa-calendar fa-lg" aria-hidden="true"></i> Member Since: <small>{{ user_public.date_joined|date:"F d, Y" }}</small></p> 
-                <p><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i> City: {{ user_public.profile.city }}</p> 
- 
+                <p><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i> Location: {{ user_public.profile.city }}</p> 
+                
             </div>
             <a class="btn btn-primary mb-4" href="{% url 'lugs-by-user' user_public.username %}">LUGs by this user</a>
 

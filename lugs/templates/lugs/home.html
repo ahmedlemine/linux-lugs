@@ -22,7 +22,7 @@
            
 {% for lug in lugs %}
 
-<div class="col-md-4">
+<div class="col-md-6">
     <div class="card mb-4 box-shadow">
         <div class="card-banner">
             <a href="{% url 'lug-detail' lug.slug %}">
@@ -50,9 +50,6 @@
 {% endfor %}
 </div>
 
-
-
 {% include "lugs/pagination.html" %}
 
 {% endblock content %}
-
