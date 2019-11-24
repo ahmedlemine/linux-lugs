@@ -15,9 +15,9 @@ class Profile(models.Model):
                                            options={'quality': 80})
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
     lugs = models.ManyToManyField(Lug)
-    twitter = models.URLField(default="", null=True, blank=True)
-    facebook = models.URLField(default="", null=True, blank=True)
-    youtube_channel = models.URLField(default="", null=True, blank=True)
+    twitter = models.URLField(default='', null=True, blank=True)
+    facebook = models.URLField(default='', null=True, blank=True)
+    youtube_channel = models.URLField(default='', null=True, blank=True)
 
 
     def __str__(self):

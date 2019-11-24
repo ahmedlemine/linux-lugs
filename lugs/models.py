@@ -14,7 +14,7 @@ class Lug(models.Model):
     name = models.CharField(verbose_name='LUG Name', max_length=100, null=False, blank=False)
     slug = models.SlugField(max_length=128, null=False, blank=False, default='')
     description = models.TextField(verbose_name='Description', help_text='About LUG, activities, focus, agenda, timing, etc.', null=True, blank=True)
-    website = models.URLField(verbose_name='LUG Website', null=True, blank=True, default='http://linuxlugs.com')
+    website = models.URLField(verbose_name='LUG Website', null=True, blank=True, default='')
     cover_image = ProcessedImageField(verbose_name='LUG Cover Image/Logo', default='lug_default_photo.png', upload_to='lug_cover_images',
                                            processors=[ResizeToFill(338, 200)],
                                            format='JPEG',

@@ -7,8 +7,8 @@
             <h4>{{ user_public.username }}'s Public Profile</h4>
 
             {% if user == user_public %}
-            <a class="btn btn-primary btn-sm" href="{% url 'edit-profile' %}">Edit Profile</a>
-            <a class="btn btn-secondary btn-sm" href="{% url 'password_reset' %}">Reset Password</a>
+            <a class="btn btn-outline-info btn-sm" href="{% url 'edit-profile' %}">Edit Profile</a>
+            <a class="btn btn-outline-info btn-sm" href="{% url 'password_reset' %}">Reset Password</a>
             {% endif %}
 
             <hr>
@@ -29,7 +29,7 @@
 
             <h4><strong>{{ user_public.username }}</strong> is a member of these LUGs:</h4>
                 {% for lug in user_lugs %}
-                    <p><a href="{% url 'lug-detail' lug.slug %}"><img width="25px" height="30px" src="{{ lug.cover_image.url}}" alt="{{ lug.name }} cover image"> {{ lug.name }}</a></p>
+                    <p><a href="{% url 'lug-detail' lug.slug %}"><img class="lug-thumb" src="{{ lug.cover_image.url}}" alt="{{ lug.name }} cover image"> {{ lug.name }}</a></p>
                 {% endfor%}
             
             

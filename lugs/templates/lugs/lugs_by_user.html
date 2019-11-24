@@ -1,8 +1,9 @@
 {% extends "lugs/base.html" %}
 {% block content %}
 <h1 class="mb-3">LUGs by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+
 {% for lug in lugs %}
-<div class="col-md-4">
+<div class="col-md-6">
     <div class="card mb-4 box-shadow">
         <div class="card-banner">
             <a href="{% url 'lug-detail' lug.slug %}">
