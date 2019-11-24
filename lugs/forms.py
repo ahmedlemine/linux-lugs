@@ -23,3 +23,9 @@ class LugForm(ModelForm):
         ]
 
 
+class FindLugByCityForm(ModelForm):
+    class Meta:
+        model = Lug
+        fields = [
+        'city',
+        ]

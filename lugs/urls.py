@@ -20,6 +20,7 @@ urlpatterns = [
     # path('lug/<slug:slug>/update', LugUpdateView.as_view(), name='lug-update'),
     path('lug/<slug:slug>/delete', LugDeleteView.as_view(), name='lug-delete'),
     path('lugs-in-city/<int:city_id>/', LugsByCityListView.as_view(), name='lugs-by-city'),
+    path('find-lugs-in-city/', views.findLugByCityView, name='find-lugs-in-city'),
     path('about/', views.about, name='lugs-about'),
     path('join-lug/<slug:slug>/', views.joinLug, name='join-lug'),
     path('leave-lug/<slug:slug>/', views.leaveLug, name='leave-lug'),

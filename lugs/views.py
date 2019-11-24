@@ -9,7 +9,7 @@ from django.views.generic import (ListView,
                                   UpdateView,
                                   DeleteView
                                   )
-from .forms import LugForm
+from .forms import LugForm, FindLugByCityForm
 from .models import Lug
 from cities_light.models import City
 
@@ -219,6 +219,22 @@ def lugMembersView(request, slug):
 
     return render(request, 'lugs/lug_members_list.html', context)
 
+
+def findLugByCityView(request):
+    title = 'Find Nearby LUGs'
+    form = FindLugByCityForm()
+    query = request.GET.get('city')
+    if query:
+        lugs = Lug.objects.filter(city=query)
+        form = FindLugByCityForm(request.GET)
+        context = {'title': title, 'lugs': lugs, 'form': form}
+        return render(request, 'lugs/find_lugs_in_city.html', context)
+
+    context = {
+        'form': form,
+        'title': title 
+        }
+    return render(request, 'lugs/find_lugs_in_city.html', context)
 
 def about(request):
     return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})
