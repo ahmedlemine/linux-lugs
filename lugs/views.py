@@ -26,6 +26,8 @@ def LugListView(request):
     query = request.GET.get('q')
     if query:
         lugs = lugs.filter(name__icontains=query)
+        if not lugs:
+            messages.warning(request, f'Your search returned no result.')
     context = {'lugs': lugs}
     return render(request, 'lugs/home.html', context)
 
@@ -228,6 +230,8 @@ def findLugByCityView(request):
         lugs = Lug.objects.filter(city=query)
         form = FindLugByCityForm(request.GET)
         context = {'title': title, 'lugs': lugs, 'form': form}
+        if not lugs:
+            messages.warning(request, f'No LUGs found in this city.')
         return render(request, 'lugs/find_lugs_in_city.html', context)
 
     context = {

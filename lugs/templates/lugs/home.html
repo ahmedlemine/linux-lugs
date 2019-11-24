@@ -6,13 +6,8 @@
         <div class="content-section">
             <form action="" method="GET">
                     <fieldset class="form-group">
-                        <input type="text" value="{{ request.GET.q }}" name="q" placeholder="Search LUGs">
+                        <input type="text" value="{{ request.GET.q }}" name="q" placeholder="Search LUGs by name">
                         <input class="btn btn-sm btn-primary" type="submit" value="Search">
-                        {% if user.is_authenticated and user.profile.city != None %}
-                            <a class="btn btn-sm btn-success mt-2" href="{% url 'lugs-by-city' user.profile.city_id %}">Nearby LUGs</a>
-                        {% else %}
-                            <br><small><a href="{% url 'login' %}">Login</a> & Set 'City' in your profile to Find Nearby LUGs</small>
-                        {% endif %}
                     </fieldset>
             </form>
         </div>
