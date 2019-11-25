@@ -1,22 +1,5 @@
 {% extends "lugs/base.html" %}
 {% block content %}
-<!-- start search box -->
-<div class="row">
-        <div class="col-md-6">
-        <div class="content-section">
-            <form action="" method="GET">
-                    <fieldset class="form-group">
-                        <input type="text" value="{{ request.GET.q }}" name="q" placeholder="Search LUGs by name">
-                        <input class="btn btn-sm btn-primary" type="submit" value="Search">
-                    </fieldset>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- end search box-->
-
-
 
 <div class="row">
            
@@ -33,7 +16,7 @@
             <p class="card-title"><strong>{{ lug.name }}</strong></p>
         </div>
         <div class="card-body">
-            <p class="card-text text-muted">{{lug.city}}</p>
+            <p class="card-text text-muted">{{ lug.city|truncatewords:4 }}</p>
             <div class="d-flex justify-content-between align-items-center">
                 <small class="text-muted">
                     <i class="fa fa-users fa-lg" aria-hidden="true"></i> {{lug.profile_set.all.count}}
@@ -46,10 +29,28 @@
         </div>
     </div>
 </div>
-
 {% endfor %}
+
+
 </div>
 
 {% include "lugs/pagination.html" %}
 
 {% endblock content %}
+
+{% block sidebar %}
+<!-- start side bar-->
+<div class="col-md-4">
+    <div class="content-section">
+
+            <form action="" method="GET">
+                    <fieldset class="form-group">
+                        <input type="text" value="{{ request.GET.q }}" name="q" placeholder="Search LUGs by name">
+                        <input class="btn btn-sm btn-primary" type="submit" value="Search">
+                    </fieldset>
+            </form>
+    </div>       
+</div>
+<!-- end side bar-->
+
+{% endblock sidebar %}
