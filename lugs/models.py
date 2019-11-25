@@ -10,6 +10,7 @@ from imagekit.processors import ResizeToFill
 from cities_light.models import City
 
 
+
 class Lug(models.Model):
     name = models.CharField(verbose_name='LUG Name',
                              help_text='The name you choose for the LUG will be used in the permanent link, you can change the name later but the link will remain unchanged.',
