@@ -51,3 +51,15 @@ def slug_generator(sender, instance, *args, **kwargs):
         instance.slug = unique_slug_generator(instance)
 
 pre_save.connect(slug_generator, sender=Lug)
+
+
+class Post(models.Model):
+    lug = models.ForeignKey(Lug, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(verbose_name='Post Title', max_length=100, null=False, blank=False)
+    text = models.TextField(verbose_name='Post Text', null=False, blank=False)
+    date_added = models.DateTimeField(default=timezone.now)
+    last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name

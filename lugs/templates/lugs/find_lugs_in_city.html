@@ -5,15 +5,13 @@
 <!-- start find LUGs by city form -->
 <div class="row">
         <div class="col-md-12">
-        <div class="content-section">
-            <form action="{% url 'find-lugs-in-city' %}" method="GET">
+            <form class="form-control" action="{% url 'find-lugs-in-city' %}" method="GET">
                     <fieldset class="form-group">
                         <legend class="border-bottom mb-4">Find LUGs in Your City</legend>
                         {{form|crispy}}
                         <input class="btn btn-primary" type="submit" value="Find Nearby LUGs">
                     </fieldset>
             </form>
-        </div>
     </div>
 </div>
 <!-- end search box-->

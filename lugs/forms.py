@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Lug
+from .models import Lug, Post
 from cities_light.models import City
 
 
@@ -20,6 +20,15 @@ class LugForm(ModelForm):
         'twitter',
         'facebook',
         'telegram'
+        ]
+
+
+class PostForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = [
+        'title',
+        'text'
         ]
 
 

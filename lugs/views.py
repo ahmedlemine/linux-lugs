@@ -9,7 +9,7 @@ from django.views.generic import (ListView,
                                   UpdateView,
                                   DeleteView
                                   )
-from .forms import LugForm, FindLugByCityForm
+from .forms import LugForm,PostForm, FindLugByCityForm
 from .models import Lug
 from cities_light.models import City
 
@@ -21,7 +21,7 @@ from cities_light.models import City
     # ordering = ['-date_added']
     # paginate_by = 25
 
-def LugListView(request):
+def lugListView(request):
     lugs = Lug.objects.all().order_by('-date_added')
     query = request.GET.get('q')
     if query:
@@ -45,52 +45,6 @@ class LugsByUserListView(ListView):
 class LugDetailView(DetailView):
     model = Lug
     context_object_name = 'lug'
-
-# class LugCreateView(LoginRequiredMixin, CreateView):
-#     model = Lug
-#     fields = [
-#         'name',
-#         'city',
-#         'description',
-#         'cover_image',
-#         'website',
-#         'contact_person',
-#         'contact_info',
-#         'donate_link'
-#         ]
-
-#     def form_valid(self, form):
-#         form.instance.added_by = self.request.user
-#         return super().form_valid(form)
-
-# class LugUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-#     model = Lug
-#     fields = [
-#         'name',
-#         'city',
-#         'description',
-#         'cover_image',
-#         'website',
-#         'gettogether_page',
-#         'youtube_channel',
-#         'twitter',
-#         'facebook',
-#         'telegram',
-#         'contact_person',
-#         'contact_info',
-#         'donate_link'
-#         ]
-
-#     def form_valid(self, form):
-#         form.instance.added_by = self.request.user
-#         return super().form_valid(form)
-
-#     def test_func(self):
-#         lug = self.get_object()
-#         if self.request.user == lug.added_by:
-#             return True
-#         return False
-
 
 
 @login_required
@@ -239,6 +193,32 @@ def findLugByCityView(request):
         'title': title 
         }
     return render(request, 'lugs/find_lugs_in_city.html', context)
+
+###############################################################################################
+@login_required
+def createPost(request, slug):
+    lug = get_object_or_404(Lug, slug=slug)
+    user = request.user
+
+    if lug.added_by == user:
+        if request.method == 'POST':
+            form = PostForm(request.POST)
+            if form.is_valid():
+                new_post = form.save(commit=False)
+                new_post.lug = lug
+                poster = User.objects.filter(username=user.username).first()
+                new_post.posted_by = poster
+                form.save()
+                messages.success(request, f'Your post has been created')
+                return redirect('lug-detail', slug=lug.slug)
+            else:
+                form = LugForm(request.POST)
+    
+        form = PostForm()
+        return render(request, 'lugs/post_create.html', {'form': form, 'lug': lug, 'title': f'Create a Post for LUG {lug.name}'})
+    else:
+        messages.warning(request, f'You are not allowed to post to this LUG')
+        return redirect('lug-detail', slug=lug.slug)
 
 def about(request):
     return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})

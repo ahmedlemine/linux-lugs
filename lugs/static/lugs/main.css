@@ -15,7 +15,6 @@ body {
   .bg-steel {
     background-color: #00527E;
   }
-  
   .site-header .navbar-nav .nav-link {
     color: #cbd5db;
   }
@@ -88,4 +87,15 @@ body {
   
   .account-heading {
     font-size: 2.5rem;
+  }
+
+  .post-title {
+    color: rgb(4, 34, 116);
+    margin-bottom: 2px;
+    margin-top: 5px;
+  }
+
+  .post-content {
+    white-space: post-line;
+    border-bottom: 1px;
   }

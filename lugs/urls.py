@@ -1,8 +1,5 @@
 from django.urls import path
-from .views import (LugListView, 
-                    LugDetailView,
-                    # LugCreateView,
-                    # LugUpdateView,
+from .views import (LugDetailView,
                     LugDeleteView,
                     LugsByUserListView,
                     MyLugsListView,
@@ -11,7 +8,7 @@ from .views import (LugListView,
 from . import views
 
 urlpatterns = [
-    path('', LugListView, name='lugs-home'),
+    path('', views.lugListView, name='lugs-home'),
     # path('', LugListView.as_view(), name='lugs-home'),
     path('lugs-by/<str:username>/', LugsByUserListView.as_view(), name='lugs-by-user'),
     path('my-lugs/', MyLugsListView.as_view(), name='my-lugs'),
@@ -26,5 +23,6 @@ urlpatterns = [
     path('leave-lug/<str:slug>/', views.leaveLug, name='leave-lug'),
     path('lug-members/<str:slug>/', views.lugMembersView, name='lug-members'),
     path('create_lug/', views.createLug, name='lug-create'),
-    path('edit_lug/<str:slug>/', views.editLug, name='lug-update')
+    path('edit_lug/<str:slug>/', views.editLug, name='lug-update'),
+    path('create_post/<str:slug>/', views.createPost, name='create-post')
 ]
