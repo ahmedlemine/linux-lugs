@@ -21,14 +21,11 @@
 <hr>
 {% if lug.post_set %}
     {% for post in lug.post_set.all %}
-        <div class="media-body border-bottom">
-                <div class="">
+        <div class="post-section">
                     <h5 class="post-title">{{ post.title }}</h5>
                     <small>Posted by: <a class="mr-2" href="{% url 'public-profile' post.posted_by.username %}">{{ post.posted_by }}</a> On: {{ post.date_added }}</small>
-                </div>
                 <p class="post-content">
-                    {{ post.text }}</p>
-                
+                    {{ post.text }}</p> 
         </div>
     {% endfor %}
 {% else %}
