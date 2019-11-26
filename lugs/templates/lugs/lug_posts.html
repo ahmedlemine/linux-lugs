@@ -17,7 +17,7 @@
 {% if posts %}
     {% for post in posts %}
     <div class="post-section">
-        <h5 class="post-title">{{ post.title }}</h5>
+        <h5 class="post-title"><img class="lug-thumb rounded-circle mr-2 mb-2" src="{{ post.posted_by.profile.image.url }}">{{ post.title }}</h5>
         {% if post.posted_by == user or post.lug.added_by == user %}
         <a class="btn btn-outline-info btn-sm mb-2" href="{% url 'edit-post' post.pk %}">Edit</a>
         <a class="btn btn-outline-info btn-sm mb-2" href="{% url 'delete-post' post.pk %}">Delete</a>

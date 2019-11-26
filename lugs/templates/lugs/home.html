@@ -4,7 +4,6 @@
 <div class="row">
            
 {% for lug in lugs %}
-
 <div class="col-md-6">
     <div class="card mb-4 box-shadow">
         <div class="card-banner">
@@ -16,11 +15,11 @@
             <p class="card-title"><strong>{{ lug.name|slice:":30" }}</strong></p>
         </div>
         <div class="card-body">
-            <p class="card-text text-muted">{{ lug.city|truncatewords:4 }}</p>
+            <p class="card-text text-muted"><i class="fa fa-map-marker text-muted mr-2" aria-hidden="true"></i>{{ lug.city|truncatewords:4 }}</p>
             <div class="d-flex justify-content-between align-items-center">
                 <small class="text-muted">
-                    <i class="fa fa-users fa-lg" aria-hidden="true"></i> {{lug.profile_set.all.count}}
-                    <i class="fa fa-user fa-lg" aria-hidden="true"></i><a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}"> {{ lug.added_by|slice:":20" }}</a>
+                    <i class="fa fa-users mr-1" aria-hidden="true"></i>{{lug.profile_set.all.count}}
+                    <i class="fa fa-user ml-2" aria-hidden="true"></i> <a href="{% url 'public-profile' lug.added_by.username %}">{{ lug.added_by|slice:":20" }} </a>
                 </small>
                 <div class="btn-group">
                     <a class="btn btn-outline-info" href="{% url 'lug-detail' lug.slug %}">View</a>

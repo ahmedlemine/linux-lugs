@@ -15,9 +15,9 @@
 
             <div>
                 <p>
-                    <a href="{{ user_public.profile.twitter }}"><i class="fa fa-twitter fa-2x text-muted" aria-hidden="true"></i></a>
-                    <a href="{{ user_public.profile.facebook }}"><i class="fa fa-facebook fa-2x text-muted" aria-hidden="true"></i></a>
-                    <a href="{{ user_public.profile.youtube_channel }}"><i class="fa fa-youtube fa-2x text-muted" aria-hidden="true"></i></a>
+                    <a href="{{ user_public.profile.twitter }}" target="_blank"><i class="fa fa-twitter fa-2x text-muted" aria-hidden="true"></i></a>
+                    <a href="{{ user_public.profile.facebook }}" target="_blank"><i class="fa fa-facebook fa-2x text-muted" aria-hidden="true"></i></a>
+                    <a href="{{ user_public.profile.youtube_channel }}" target="_blank"><i class="fa fa-youtube fa-2x text-muted" aria-hidden="true"></i></a>
                 </p>
                 <p><i class="fa fa-user-circle fa-lg text-muted" aria-hidden="true"></i> LinuxLUGs Name: {{ user_public.username }}</p>
                 <p><i class="fa fa-address-card fa-lg text-muted" aria-hidden="true"></i> Real Name: {{ user_public.profile.real_name }}</p>
@@ -29,7 +29,7 @@
 
             <h4><strong>{{ user_public.username }}</strong> is a member of these LUGs:</h4>
                 {% for lug in user_lugs %}
-                    <p><a href="{% url 'lug-detail' lug.slug %}"><img class="lug-thumb" src="{{ lug.cover_image.url}}" alt="{{ lug.name }} cover image"> {{ lug.name }}</a></p>
+                    <p><a href="{% url 'lug-detail' lug.slug %}"><img class="lug-thumb mr-2" src="{{ lug.cover_image.url}}" alt="{{ lug.name }} cover image">{{ lug.name }}</a></p>
                 {% endfor%}
             
             
