@@ -6,7 +6,7 @@
     <div class="media-body">
         <div class="lug-metadata">
             <h1 class="lug-title">{{ lug.name }}</h1>
-            <img class="" src="{{ lug.cover_image.url }}" alt="cover image for {{lug.name}}">
+            <img class="mb-3" src="{{ lug.cover_image.url }}" alt="cover image for {{lug.name}}">
         </div>
         <p class="lug-content"><strong>About this LUG: </strong>
             {{ lug.description }}</p>
@@ -16,27 +16,27 @@
 
 <!-- start LUG posts  -->
 <a name="lug-posts"></a>
-<h3>LUG Updates & Announcements</h3><small>
-<a class="btn btn-outline-info btn-sm" href="{% url 'lug-posts' lug.slug %}">See All</a></small>
-<hr>
+<h3>LUG Updates & Announcements ({{lug.post_set.count}})</h3>
+<p><a class="btn btn-outline-info" href="{% url 'lug-posts' lug.slug %}">See All</a></p>
+
 {% if lug.post_set %}
     {% for post in lug.post_set.all %}
         <div class="post-section">
                     <h5 class="post-title">{{ post.title }}</h5>
                     <small>Posted by: <a class="mr-2" href="{% url 'public-profile' post.posted_by.username %}">{{ post.posted_by }}</a> On: {{ post.date_added }}</small>
                 <p class="post-content">
-                    {{ post.text }}</p> 
+                    {{ post.text|truncatewords:30 }}</p>
+                <a class="btn btn-outline-info btn-sm" href="{% url 'post-detail' post.pk %}">Read More...</a>
         </div>
     {% endfor %}
 {% else %}
     <p>No posts for this LUG yet.</p>
 {% endif %}
 {% if user.profile in lug.profile_set.all and lug.added_by == user %}
-<div>
     <p>
-    <br><a class="btn btn-success" href="{% url 'create-post' lug.slug %}">Create a Post</a>
+    <a class="btn btn-success" href="{% url 'create-post' lug.slug %}">Create a Post</a>
     </p>
-</div>
+
 {% endif %}
 <!-- End LUG posts -->
 {% endblock content %}
@@ -70,24 +70,24 @@
                     <a class="btn btn-outline-info mb-2" href="#lug-posts">News & Updates</a>
                     <p><i class="fa fa-map-marker fa-lg text-muted" aria-hidden="true"></i> City: 
                         <a href="{% url 'lugs-by-city' lug.city_id %}">{{ lug.city }}</a></p>
-                    <p><i class="fa fa-users fa-lg text-muted" aria-hidden="true"></i> {{lug.profile_set.all.count}} member(s)</p>
+                    <p><i class="fa fa-users fa-lg text-muted" aria-hidden="true"></i> {{ lug.profile_set.all.count }} member(s)</p>
                     <p><i class="fa fa-user fa-lg text-muted" aria-hidden="true"></i> Added by: <a class="mr-2" href="{% url 'public-profile' lug.added_by.username %}">{{ lug.added_by }}</a></p>
                     <p><i class="fa fa-calendar-plus-o fa-lg text-muted" aria-hidden="true"></i> Added On: {{ lug.date_added|date:"d, n, Y" }}</p>
                     <p><i class="fa fa-refresh fa-lg text-muted" aria-hidden="true"></i> Last Updated:  {{ lug.last_updated|date:"d, n, Y" }}</p>
                     <hr>
                     <p><i class="fa fa-link fa-lg text-muted" aria-hidden="true"></i> Links: </p>
                     <p>
-                        <a href="{{ lug.website }}"><i class="fa fa-home fa-2x text-muted" aria-hidden="true"></i></a>
-                        <a href="{{ lug.youtube_channel }}"><i class="fa fa-youtube fa-2x text-muted" aria-hidden="true"></i></a>
-                        <a href="{{ lug.twitter }}"><i class="fa fa-twitter fa-2x text-muted" aria-hidden="true"></i></a>                        
-                        <a href="{{ lug.facebook }}"><i class="fa fa-facebook fa-2x text-muted" aria-hidden="true"></i></a>                        
-                        <a href="{{ lug.telegram }}"><i class="fa fa-telegram fa-2x text-muted" aria-hidden="true"></i></a>
+                        <a href="{{ lug.website }}" target="_blank"><i class="fa fa-home fa-2x text-muted" aria-hidden="true"></i></a>
+                        <a href="{{ lug.youtube_channel }}" target="_blank"><i class="fa fa-youtube fa-2x text-muted" aria-hidden="true"></i></a>
+                        <a href="{{ lug.twitter }}" target="_blank"><i class="fa fa-twitter fa-2x text-muted" aria-hidden="true"></i></a>                        
+                        <a href="{{ lug.facebook }}" target="_blank"><i class="fa fa-facebook fa-2x text-muted" aria-hidden="true"></i></a>                        
+                        <a href="{{ lug.telegram }}" target="_blank"><i class="fa fa-telegram fa-2x text-muted" aria-hidden="true"></i></a>
                     </p>
                     <hr>
                     <p><i class="fa fa-map-pin fa-lg text-muted" aria-hidden="true"></i> Meetup Place: {{ lug.meetup_place }}</p>
                     <p><i class="fa fa-address-book fa-lg text-muted" aria-hidden="true"></i> Contact Person: {{ lug.contact_person }}</p>
                     <p><i class="fa fa-address-card fa-lg text-muted" aria-hidden="true"></i> Contact Info: {{ lug.contact_info }}</p>
-                    <p><i class="fa fa-support fa-lg text-muted" aria-hidden="true"></i> <a href="{{ lug.donate_link }}">Support this LUG</a></p>
+                    <p><i class="fa fa-support fa-lg text-muted" aria-hidden="true"></i> <a href="{{ lug.donate_link }}" target="_blank">Support this LUG</a></p>
                 </div>
             
                 <hr>
@@ -100,7 +100,7 @@
                     {% endfor %}
                     </div>
                     <br>
-                    <a class="btn btn-primary" href="{% url 'lug-members' lug.slug %}">All Members</a>
+                    <a class="btn btn-outline-info" href="{% url 'lug-members' lug.slug %}">All Members</a>
                 </div>
                 
             </div>

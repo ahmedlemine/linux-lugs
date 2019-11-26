@@ -3,9 +3,11 @@
 {% block content %}
 <div class="media-body">
         <div class="">
-        <img class="lug-thumb rounded-circle" src="{{ lug.cover_image.url }}" alt="cover image for {{lug.name}}">
-        <h2 class="lug-title">{{ lug.name }}</h2> <h2>Updates & Announcements</h2>
-        <p><a class="btn btn-success" href="{% url 'create-post' lug.slug %}">Create a Post</a></p>    
+        <h2 class="lug-title"><img class="lug-thumb rounded-circle" src="{{ lug.cover_image.url }}">
+        <a href="{% url 'lug-detail' lug.slug %}">{{ lug.name }}:</a> Updates & Announcements</h2>
+        {% if user.profile in lug.profile_set.all and lug.added_by == user %}
+        <p><a class="btn btn-success" href="{% url 'create-post' lug.slug %}">Create a Post</a></p> 
+        {% endif %}   
 </div>
         
 </div>
@@ -16,21 +18,20 @@
     {% for post in posts %}
     <div class="post-section">
         <h5 class="post-title">{{ post.title }}</h5>
-        {% if post.posted_by == user %}
+        {% if post.posted_by == user or post.lug.added_by == user %}
         <a class="btn btn-outline-info btn-sm mb-2" href="{% url 'edit-post' post.pk %}">Edit</a>
+        <a class="btn btn-outline-info btn-sm mb-2" href="{% url 'delete-post' post.pk %}">Delete</a>
         {% endif %}
         <br>
         <small>Posted by: <a class="mr-2" href="{% url 'public-profile' post.posted_by.username %}">{{ post.posted_by }}</a> On: {{ post.date_added }}</small>
-        <p class="post-content">{{ post.text }}</p>
+        <p class="post-content">{{ post.text|truncatewords:30 }}</p>
+        <a class="btn btn-outline-info btn-sm" href="{% url 'post-detail' post.pk %}">Read More...</a>
     </div>
     {% endfor %}
 {% else %}
     <p>No posts for this LUG yet.</p>
 {% endif %}
 
-{% if user.profile in lug.profile_set.all and lug.added_by == user %}
-
-{% endif %}
 <!-- End LUG posts -->
 
 {% endblock content %}

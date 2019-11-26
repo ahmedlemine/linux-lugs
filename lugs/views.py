@@ -194,12 +194,19 @@ def findLugByCityView(request):
         }
     return render(request, 'lugs/find_lugs_in_city.html', context)
 
-###################################LUG POSTS##########################################
+'''
+LUG POSTS
+'''
 def lugPostsListView(request, slug):
     lug = get_object_or_404(Lug, slug=slug)
     posts = Post.objects.filter(lug=lug).order_by('-date_added')
     context = {'lug': lug, 'posts': posts}
     return render(request, 'lugs/lug_posts.html', context)
+
+def lugPostDetail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    
+    return render(request, 'lugs/post_detail.html', {'post': post, 'title': f'Post Detail {post.title}'})
 
 @login_required
 def createPost(request, slug):
@@ -247,6 +254,20 @@ def editPost(request, pk):
         messages.warning(request, f'You can edit only LUGs you have created')
         return redirect('lug-posts', slug=post.lug.slug)
 
+def deletePost(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    user = request.user
+
+    if post.posted_by == user or post.lug.added_by == user:
+        if request.method == 'POST':
+            post.delete()
+            messages.success(request, f'Post deleted!')
+            return redirect('lug-posts', slug=post.lug.slug)
+
+        return render(request, 'lugs/post_delete.html', {'post': post, 'title': f'Delete Post {post.title}'})
+    else:
+        messages.warning(request, f'You are not allowed to delete this post!')
+        return redirect('lug-posts', slug=post.lug.slug)
 
 def about(request):
     return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})

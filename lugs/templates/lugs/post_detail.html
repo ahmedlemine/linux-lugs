@@ -1,0 +1,27 @@
+{% extends "lugs/base.html" %}
+
+{% block content %}
+<div class="media-body">
+        
+</div>
+
+
+<h5><img class="lug-thumb rounded-circle mr-2" src="{{ post.lug.cover_image.url }}"><a href="{% url 'lug-detail' post.lug.slug %}">{{ post.lug.name }}</a>
+     / <a href="{% url 'lug-posts' post.lug.slug %}">Posts</a>
+      / <a href="#">{{post.title}}</a></h5>
+
+<div class="post-section">
+    <h5 class="post-title">{{ post.title }}</h5>
+    {% if post.posted_by == user or post.lug.added_by == user %}
+    <a class="btn btn-outline-info btn-sm mb-2" href="{% url 'edit-post' post.pk %}">Edit</a>
+    <a class="btn btn-outline-info btn-sm mb-2" href="{% url 'delete-post' post.pk %}">Delete</a>
+    {% endif %}
+    <br>
+    <small>Posted by: <a class="mr-2" href="{% url 'public-profile' post.posted_by.username %}">{{ post.posted_by }}</a> On: {{ post.date_added }}</small>
+    <p class="post-content">{{ post.text }}</p>
+</div>
+
+
+<!-- End LUG posts -->
+
+{% endblock content %}
