@@ -10,7 +10,7 @@ from django.views.generic import (ListView,
                                   DeleteView
                                   )
 from .forms import LugForm,PostForm, FindLugByCityForm
-from .models import Lug
+from .models import Lug, Post
 from cities_light.models import City
 
 
@@ -194,7 +194,13 @@ def findLugByCityView(request):
         }
     return render(request, 'lugs/find_lugs_in_city.html', context)
 
-###############################################################################################
+###################################LUG POSTS##########################################
+def lugPostsListView(request, slug):
+    lug = get_object_or_404(Lug, slug=slug)
+    posts = Post.objects.filter(lug=lug).order_by('-date_added')
+    context = {'lug': lug, 'posts': posts}
+    return render(request, 'lugs/lug_posts.html', context)
+
 @login_required
 def createPost(request, slug):
     lug = get_object_or_404(Lug, slug=slug)
@@ -219,6 +225,28 @@ def createPost(request, slug):
     else:
         messages.warning(request, f'You are not allowed to post to this LUG')
         return redirect('lug-detail', slug=lug.slug)
+
+@login_required
+def editPost(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    user = request.user
+
+    if post.posted_by == user:
+        if request.method == 'POST':
+            form = PostForm(request.POST, instance=post)
+            if form.is_valid():
+                form.save()
+                messages.success(request, f'Post updated.')
+                return redirect('lug-posts', slug=post.lug.slug)
+            else:
+                form = PostForm(request.POST)
+    
+        form = PostForm(instance=post)
+        return render(request, 'lugs/post_edit.html', {'form': form, 'post': post, 'title': f'Update Post {post.title}'})
+    else:
+        messages.warning(request, f'You can edit only LUGs you have created')
+        return redirect('lug-posts', slug=post.lug.slug)
+
 
 def about(request):
     return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})

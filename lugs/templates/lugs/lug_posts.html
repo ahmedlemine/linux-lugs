@@ -1,0 +1,45 @@
+{% extends "lugs/base.html" %}
+
+{% block content %}
+<lug class="media content-section">
+
+    <div class="media-body">
+        <div class="lug-metadata">
+        <img class="lug-thumb rounded-circle" src="{{ lug.cover_image.url }}" alt="cover image for {{lug.name}}">
+        <h2 class="lug-title">{{ lug.name }}</h2> <h2>Updates & Announcements</h2>    
+        </div>
+
+<!-- start LUG posts  -->
+
+{% if posts %}
+    {% for post in posts %}
+        <div class="media-body border-bottom">
+                <div class="">
+                    <h5 class="post-title">{{ post.title }}</h5>
+                    {% if post.posted_by == user %}
+                    <a class="btn btn-outline-info btn-sm" href="{% url 'edit-post' post.pk %}">Edit</a>
+                    {% endif %}
+                    <br>
+                    <small>Posted by: <a class="mr-2" href="{% url 'public-profile' post.posted_by.username %}">{{ post.posted_by }}</a> On: {{ post.date_added }}</small>
+                </div>
+                <p class="post-content">
+                    {{ post.text }}</p>
+                
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No posts for this LUG yet.</p>
+{% endif %}
+
+{% if user.profile in lug.profile_set.all and lug.added_by == user %}
+<div>
+    <br><a class="btn btn-success" href="{% url 'create-post' lug.slug %}">Create a Post</a>
+</div>
+{% endif %}
+<!-- End LUG posts -->
+
+     </div>
+</lug>
+
+
+{% endblock content %}

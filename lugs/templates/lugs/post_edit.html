@@ -5,11 +5,12 @@
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset class ="form-group">
-                <legend class="border-bottom mb-4">Create a Post for LUG <strong>{{ lug.name }}</strong></legend>
+                <legend class="border-bottom mb-4">Edit Post <strong>{{ post.title }}</strong></legend>
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-success" type="submit">Post</button>
+                <button class="btn btn-success" type="submit">Update</button>
+                <a class="btn btn-secondary" href="{% url 'lug-posts' post.lug.slug %}">Cancel</a>
             </div>
         </form>
     </div>

@@ -24,5 +24,7 @@ urlpatterns = [
     path('lug-members/<str:slug>/', views.lugMembersView, name='lug-members'),
     path('create_lug/', views.createLug, name='lug-create'),
     path('edit_lug/<str:slug>/', views.editLug, name='lug-update'),
-    path('create_post/<str:slug>/', views.createPost, name='create-post')
+    path('lug/<str:slug>/create_post', views.createPost, name='create-post'),
+    path('lug/edit_post/<int:pk>/', views.editPost, name='edit-post'),
+    path('lug/<str:slug>/posts', views.lugPostsListView, name='lug-posts')
 ]

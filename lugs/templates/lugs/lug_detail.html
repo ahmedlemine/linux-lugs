@@ -15,7 +15,9 @@
 
 
 <!-- start LUG posts  -->
-<h3>LUG Updates & Announcements</h3>
+<a name="lug-posts"></a>
+<h3>LUG Updates & Announcements</h3><small>
+<a class="btn btn-outline-info btn-sm" href="{% url 'lug-posts' lug.slug %}">See All</a></small>
 <hr>
 {% if lug.post_set %}
     {% for post in lug.post_set.all %}
@@ -68,6 +70,7 @@
                 {% endif %}
                 <!-- End Join/Leave LUG button-->
                 <div class="mt-3">
+                    <a class="btn btn-outline-info mb-2" href="#lug-posts">News & Updates</a>
                     <p><i class="fa fa-map-marker fa-lg text-muted" aria-hidden="true"></i> City: 
                         <a href="{% url 'lugs-by-city' lug.city_id %}">{{ lug.city }}</a></p>
                     <p><i class="fa fa-users fa-lg text-muted" aria-hidden="true"></i> {{lug.profile_set.all.count}} member(s)</p>
