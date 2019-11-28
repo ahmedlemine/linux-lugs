@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="row">
-           
+
 {% for lug in lugs %}
 <div class="col-md-6">
     <div class="card mb-4 box-shadow">
@@ -40,15 +40,18 @@
 {% block sidebar %}
 <!-- start side bar-->
 <div class="col-md-4">
-    <!-- <div class="content-section"> -->
 
-            <form action="" method="GET">
-                    <fieldset class="form-group">
-                        <input class="form-control form-control-lg" type="text" value="{{ request.GET.q }}" name="q" placeholder="Search LUGs by name">
-                        <!-- <input class="btn btn-primary" type="submit" value="Search"> -->
-                    </fieldset>
-            </form>
-    <!-- </div>        -->
+    <form action="" method="GET">
+            <fieldset class="form-group">
+                <input class="form-control form-control-lg" type="text" value="{{ request.GET.q }}" name="q" placeholder="Search LUGs by name">
+                <!-- <input class="btn btn-primary" type="submit" value="Search"> -->
+            </fieldset>
+    </form>
+
+    <div class="content-section">
+        <h6>Ads</h6>
+        Your Ad here
+    </div>
 </div>
 <!-- end side bar-->
 

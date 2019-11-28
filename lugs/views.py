@@ -11,7 +11,9 @@ from django.views.generic import (ListView,
                                   )
 from .forms import LugForm,PostForm, FindLugByCityForm
 from .models import Lug, Post
+from users.models import Profile
 from cities_light.models import City
+from django.db.models import Max
 
 
 # class LugListView(ListView):
@@ -23,11 +25,12 @@ from cities_light.models import City
 
 def lugListView(request):
     lugs = Lug.objects.all().order_by('-date_added')
+    
     query = request.GET.get('q')
     if query:
         lugs = lugs.filter(name__icontains=query)
         if not lugs:
-            messages.warning(request, f'Your search returned no result.')
+            messages.warning(request, f'Your search returned no results.')
     context = {'lugs': lugs}
     return render(request, 'lugs/home.html', context)
 

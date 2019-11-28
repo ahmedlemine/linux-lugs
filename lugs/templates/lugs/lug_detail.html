@@ -89,8 +89,8 @@
                     <p><i class="fa fa-address-card fa-lg text-muted" aria-hidden="true"></i> Contact Info: {{ lug.contact_info }}</p>
                     <p><i class="fa fa-support fa-lg text-muted" aria-hidden="true"></i> <a href="{{ lug.donate_link }}" target="_blank">Support this LUG</a></p>
                 </div>
-            
-                <hr>
+            </div>
+            <div class="content-section">
                 <div class="mb-2 mt-2">
                     <p><i class="fa fa-users fa-lg text-muted" aria-hidden="true"></i><strong> Members  ({{lug.profile_set.all.count}})</strong></p>
                     <div>
@@ -102,7 +102,6 @@
                     <br>
                     <a class="btn btn-outline-info" href="{% url 'lug-members' lug.slug %}">All Members</a>
                 </div>
-                
             </div>
         </div>
         <!-- end side bar-->
