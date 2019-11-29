@@ -48,7 +48,7 @@
                 {% if user.profile in lug.profile_set.all and lug.added_by == user %}
                     <div class="border-bottom">
                         <p>You are the creator of this LUG 
-                        <br><a class="btn btn-success" href="{% url 'lug-update' lug.slug %}">Edit</a>
+                        <br><a class="btn btn-success" href="{% url 'lug-update' lug.slug %}">Edit LUG</a>
                         </p>
                     </div>
                 {% endif %}

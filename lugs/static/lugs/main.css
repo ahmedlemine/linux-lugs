@@ -107,3 +107,30 @@ body {
     border-radius: 3px;
     margin-bottom: 20px;
   }
+
+
+/*bootstrp-card */
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+.card-banner {
+    position: relative;
+}
+.card-banner .card-title {
+    position: absolute;
+    bottom: 0px;
+    left: 6px;
+    color: #FFF;
+    font-size: 18pt;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px #222;
+}
+.card-banner .card-img-top {
+    width: 100%;
+}
+.card-link {
+    color: #000 !important;
+}
+.card-body {
+    padding: 1.25rem;
+}
