@@ -2,8 +2,8 @@
 settings.*
 *.pyc
 /env/
-blog/settings.py
-blog/__pycache__/
-django_blog/__pycache__/
+lugs/settings.py
+lugs/__pycache__/
+linux_lugs/__pycache__/
 media/
 /static/
