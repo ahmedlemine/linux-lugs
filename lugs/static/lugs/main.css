@@ -55,8 +55,8 @@ body {
   }
   
   .lug-thumb {
-    height: 30px;
-    width: 30px;
+    height: 40px;
+    width: 40px;
     margin-right: 1px;
     margin-left: 1px;
   }
@@ -109,7 +109,7 @@ body {
   }
 
 
-/*bootstrp-card */
+/*bootstrp-card customized */
 
 .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
 
