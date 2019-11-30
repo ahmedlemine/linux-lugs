@@ -6,5 +6,4 @@ lugs/settings.py
 lugs/__pycache__/
 linux_lugs/__pycache__/
 media/
-/static/
 lugs/static
