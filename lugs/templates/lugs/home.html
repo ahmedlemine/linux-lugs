@@ -1,6 +1,18 @@
 {% extends "lugs/base.html" %}
 {% block content %}
 
+<!-- Jumptron -->
+<div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1>Welcome to Linux LUGs</h1>
+            <h4>Let's Bring LUGs Back!</h4>
+            <p>Find and join a LUG near you, or start your own.</p>
+            <a class="nav-item active btn btn-success" href="{% url 'lug-create' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add a LUG</a>
+            <a class="nav-item active btn btn-primary" href="{% url 'find-lugs-in-city' %}"><i class="fa fa-search" aria-hidden="true"></i> Find a Nearby LUG</a>
+        </div>
+</div>
+
+<!-- start LUGs List -->
 <div class="row">
 
 {% for lug in lugs %}
@@ -40,17 +52,15 @@
 {% block sidebar %}
 <!-- start side bar-->
 <div class="col-md-4">
-
     <form action="" method="GET">
             <fieldset class="form-group">
                 <input class="form-control form-control-lg" type="text" value="{{ request.GET.q }}" name="q" placeholder="Search LUGs by name">
                 <!-- <input class="btn btn-primary" type="submit" value="Search"> -->
             </fieldset>
     </form>
-
     <div class="content-section">
-        <h6>Ads</h6>
-        Your Ad here
+        <h6></h6>
+        <!-- Your Ad here -->
     </div>
 </div>
 <!-- end side bar-->
