@@ -32,6 +32,16 @@ class PostForm(ModelForm):
         ]
 
 
+# class EventForm(ModelForm):
+#     class Meta:
+#         model = Event
+#         fields = [
+#         'name',
+#         'date',
+#         'summary'
+#         ]
+
+
 class FindLugByCityForm(ModelForm):
     class Meta:
         model = Lug

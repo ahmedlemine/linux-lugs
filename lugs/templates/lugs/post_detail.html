@@ -18,7 +18,7 @@
     {% endif %}
     <br>
     <small>Posted by: <a class="mr-2" href="{% url 'public-profile' post.posted_by.username %}">{{ post.posted_by }}</a> On: {{ post.date_added }}</small>
-    <p class="post-content">{{ post.text }}</p>
+    <p class="post-content">{{ post.text|linebreaks }}</p>
 </div>
 
 

@@ -198,7 +198,7 @@ def findLugByCityView(request):
     return render(request, 'lugs/find_lugs_in_city.html', context)
 
 '''
-LUG POSTS
+        LUG POSTS
 '''
 def lugPostsListView(request, slug):
     lug = get_object_or_404(Lug, slug=slug)
@@ -228,7 +228,7 @@ def createPost(request, slug):
                 messages.success(request, f'Your post has been created')
                 return redirect('lug-detail', slug=lug.slug)
             else:
-                form = LugForm(request.POST)
+                form = PostForm(request.POST)
     
         form = PostForm()
         return render(request, 'lugs/post_create.html', {'form': form, 'lug': lug, 'title': f'Create a Post for LUG {lug.name}'})
@@ -247,7 +247,7 @@ def editPost(request, pk):
             if form.is_valid():
                 form.save()
                 messages.success(request, f'Post updated.')
-                return redirect('lug-posts', slug=post.lug.slug)
+                return redirect('post-detail', pk=pk)
             else:
                 form = PostForm(request.POST)
     

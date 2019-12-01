@@ -25,7 +25,7 @@
                 <p><i class="fa fa-map-marker fa-lg text-muted" aria-hidden="true"></i> Location: {{ user_public.profile.city }}</p> 
                 
             </div>
-            <a class="btn btn-primary mb-4" href="{% url 'lugs-by-user' user_public.username %}">LUGs by this user</a>
+            <a class="btn btn-outline-info mb-4" href="{% url 'lugs-by-user' user_public.username %}">LUGs by this user</a>
 
             <h4><strong>{{ user_public.username }}</strong> is a member of these LUGs:</h4>
                 {% for lug in user_lugs %}

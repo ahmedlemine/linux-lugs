@@ -28,5 +28,6 @@ urlpatterns = [
     path('lug/edit_post/<int:pk>/', views.editPost, name='edit-post'),
     path('lug/delete_post/<int:pk>/', views.deletePost, name='delete-post'),
     path('lug/<str:slug>/posts', views.lugPostsListView, name='lug-posts'),
-    path('lug/post/<int:pk>', views.lugPostDetail, name='post-detail')
+    path('lug/post/<int:pk>', views.lugPostDetail, name='post-detail'),
+
 ]

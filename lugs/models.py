@@ -68,3 +68,14 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+#TODO
+'''
+class Membership(models.Model):
+    lug = models.ForeignKey(Lug, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_joined = models.DateTimeField(default=timezone.now)
+    role = models.SmallIntegerField(
+                            choices=[(0, "Normal"), (1, "Moderator"), (2, "Administrator")],
+                            verbose_name='Member Role', default=0, null=False, blank=False)
+'''

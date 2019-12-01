@@ -95,9 +95,9 @@
                 <div class="mb-2 mt-2">
                     <p><i class="fa fa-users fa-lg text-muted" aria-hidden="true"></i><strong> Members  ({{lug.profile_set.all.count}})</strong></p>
                     <div>
-                    {% for profile in lug.profile_set.all %}         
-                        <small class="text-muted"><a href="{% url 'public-profile' profile %}">
-                        <img class="lug-thumb rounded-circle mr-1" src="{{ profile.image.url }}">{{ profile }}</a></small>
+                    {% for profile in lug.profile_set.all %}
+                            <small class="text-muted"><a href="{% url 'public-profile' profile %}">
+                            <img class="lug-thumb rounded-circle mr-1" src="{{ profile.image.url }}">{{ profile }}</a></small>
                     {% endfor %}
                     </div>
                     <br>
