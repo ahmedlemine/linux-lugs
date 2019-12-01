@@ -16,8 +16,9 @@
 
 <!-- start LUG posts  -->
 <a name="lug-posts"></a>
-<h3>LUG Updates & Announcements ({{lug.post_set.count}})</h3>
-<p><a class="btn btn-outline-info" href="{% url 'lug-posts' lug.slug %}">See All</a></p>
+
+<h3><i class="fa fa-bullhorn fa-lg text-muted" aria-hidden="true"></i> LUG Updates & Announcements ({{lug.post_set.count}})</h3>
+<br><p><a class="btn btn-outline-info" href="{% url 'lug-posts' lug.slug %}">See All</a></p>
 
 {% if lug.post_set %}
     {% for post in lug.post_set.all %}

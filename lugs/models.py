@@ -24,7 +24,12 @@ class Lug(models.Model):
                                            processors=[ResizeToFill(338, 200)],
                                            format='JPEG',
                                            options={'quality': 60})
-    city = models.ForeignKey(City, on_delete=models.CASCADE, help_text='Use up & down arrows, PageUp/Down keys to quickly find your city')
+    city = models.ForeignKey(City,
+                             on_delete=models.CASCADE,
+                             help_text='Use up & down arrows, PageUp/Down keys to quickly find your city')
+    long = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True, verbose_name='Longitude')
+    lat = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True, verbose_name='Latitude')
+
     meetup_place = models.CharField(verbose_name='Meetup Place', help_text='Place where LUG members meet (library, restaurant, coffee shop, etc.)', max_length=250, null=True, blank=True)
     contact_person = models.CharField(verbose_name='Contact Person', max_length=100, null=True, blank=True)
     contact_info = models.CharField(verbose_name='Contact Info', help_text='How to contact LUG organizers (250 characters max).', max_length=250, null=True, blank=True)
