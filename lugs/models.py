@@ -23,7 +23,7 @@ class Lug(models.Model):
     cover_image = ProcessedImageField(verbose_name='LUG Cover Image/Logo', default='lug_default_photo.png', upload_to='lug_cover_images',
                                            processors=[ResizeToFill(338, 200)],
                                            format='JPEG',
-                                           options={'quality': 60})
+                                           options={'quality': 80})
     city = models.ForeignKey(City,
                              on_delete=models.CASCADE,
                              help_text='Use up & down arrows, PageUp/Down keys to quickly find your city')
