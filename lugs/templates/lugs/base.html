@@ -60,7 +60,6 @@
                 <div class="collapse navbar-collapse" id="navbarToggle">
                     <div class="navbar-nav mr-auto">
                             <a class="nav-item nav-link" href="{% url 'find-lugs-in-city' %}"><i class="fa fa-map-marker" aria-hidden="true"></i> Nearby LUGs</a>
-                            <a class="nav-item nav-link" href="{% url 'lugs-about' %}">About</a>
                     </div>
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
@@ -115,9 +114,28 @@
 {% block sidebar %}{% endblock sidebar %}
         </div>
         
+        <span class="empty-span"></span>
 
     </main>
 
+    <footer class="footer mt-3">
+            <div class="container">
+              <div class="row">
+                  <!-- <div class="col"> -->
+                      <ul class="list-group list-group-flush">
+                          
+                              <li><a href="/about/">About</a></li>
+                          
+                              <li><a href="#">Contact Us</a></li>
+                          
+                              <li><a href="#">Source Code</a></li>
+                          
+                      </ul>
+                  <!-- </div> -->
+              </div>
+            </div>
+        </footer>
+    <!-- bootstrtap js-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
