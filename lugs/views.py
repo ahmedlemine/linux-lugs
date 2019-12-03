@@ -25,8 +25,8 @@ def lugListView(request):
     if query:
         lugs = lugs.filter(name__icontains=query)
         if not lugs:
-            messages.warning(request, f'Your search returned no results.')
-    context = {'lugs': lugs, 'random_lug': random_lug}
+            messages.warning(request, f'Your search \"{query}\" returned no results.')
+    context = {'lugs': lugs, 'random_lug': random_lug, 'query': query}
     return render(request, 'lugs/home.html', context)
 
 
