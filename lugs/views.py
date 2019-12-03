@@ -13,18 +13,20 @@ from .forms import LugForm,PostForm, FindLugByCityForm
 from .models import Lug, Post
 from users.models import Profile
 from cities_light.models import City
-from django.db.models import Max
+# from django.db.models import Max
+from random import randint
 
 
 def lugListView(request):
     lugs = Lug.objects.all().order_by('-date_added')
-    
+    count = Lug.objects.count()
+    random_lug = Lug.objects.all()[randint(0, count - 1)]
     query = request.GET.get('q')
     if query:
         lugs = lugs.filter(name__icontains=query)
         if not lugs:
             messages.warning(request, f'Your search returned no results.')
-    context = {'lugs': lugs}
+    context = {'lugs': lugs, 'random_lug': random_lug}
     return render(request, 'lugs/home.html', context)
 
 

@@ -5,8 +5,8 @@
 <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1>Welcome to Linux LUGs</h1>
-            <h4>A simple directory for local Linux User Groups.</h4>
-            <p>Find and join a LUG near you, or start your own.</p>
+            <h4>A simple directory for local Linux User Groups</h4>
+            <p>Find and join a LUG near you, or start your own!</p>
             <a class="nav-item active btn btn-success" href="{% url 'lug-create' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add a LUG</a>
             <a class="nav-item active btn btn-primary" href="{% url 'find-lugs-in-city' %}"><i class="fa fa-search" aria-hidden="true"></i> Find a Nearby LUG</a>
         </div>
@@ -58,10 +58,11 @@
                 <!-- <input class="btn btn-primary" type="submit" value="Search"> -->
             </fieldset>
     </form>
-    
+       <!-- side box -->
     <div class="content-section">
-        <h6></h6>
-        <!-- Your Ad here -->
+        <h5>Recently added</h5>
+        <p><b><a href="{% url 'lug-detail' random_lug.slug %}"><img class="lug-thumb rounded-circle mr-1" src="{{ random_lug.cover_image.url }}">{{random_lug.name }}</a></b>
+         in {{ random_lug.city }}</p>
     </div>
 </div>
 <!-- end side bar-->
