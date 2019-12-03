@@ -16,13 +16,6 @@ from cities_light.models import City
 from django.db.models import Max
 
 
-# class LugListView(ListView):
-    # model = Lug
-    # template_name = 'lugs/home.html'
-    # context_object_name = 'lugs'
-    # ordering = ['-date_added']
-    # paginate_by = 25
-
 def lugListView(request):
     lugs = Lug.objects.all().order_by('-date_added')
     
@@ -48,6 +41,7 @@ class LugsByUserListView(ListView):
 class LugDetailView(DetailView):
     model = Lug
     context_object_name = 'lug'
+
 
 
 @login_required

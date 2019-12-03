@@ -1,6 +1,7 @@
-About
-LinuxLUGs.com website aims to be a simple directory for Linux User Groups around the world.
-You are encouraged to add your local Linux user group to the site and invite you LUG members to join it.
-Ultimately, Linux LUGs will be the destination for LUGs members to organize their groups, publish announcements and info about their activites and meetings.
 
+#About Linux LUGs
+LinuxLUGs.com is a simple free and open-source directory for Linux User Groups (LUGs) and communities all around the world.
 
+Using the site, you can find local Linux LUGs or communities and join the one(s) you're interested in to stay up to date with their meetups, activites, news and announcements.
+
+You can also start/add your own LUG and invite members to join.
