@@ -8,8 +8,8 @@
             <h1>Welcome to Linux LUGs</h1>
             <h4>An open directory for local Linux User Groups</h4>
             <p>Find and join a LUG near you, or start your own!</p>
-            <a class="nav-item active btn btn-success" href="{% url 'lug-create' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add a LUG</a>
-            <a class="nav-item active btn btn-primary" href="{% url 'find-lugs-in-city' %}"><i class="fa fa-search" aria-hidden="true"></i> Find a Nearby LUG</a>
+            <a class="btn btn-success" href="{% url 'lug-create' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add a LUG</a>
+            <a class="btn btn-primary" href="{% url 'find-lugs-in-city' %}"><i class="fa fa-search" aria-hidden="true"></i> Find a Nearby LUG</a>
         </div>
 </div>
 {% endif %}
@@ -62,9 +62,11 @@
         </form>
        <!-- side box -->
     <div class="content-section">
-        <h5>Recently Added</h5>
-        <p><b><a href="{% url 'lug-detail' random_lug.slug %}"><img class="lug-thumb rounded-circle mr-1" src="{{ random_lug.cover_image.url }}">{{random_lug.name }}</a></b>
-         in {{ random_lug.city }}</p>
+        <h4 class="border-bottom">Latest LUGs</h4>
+        {% for l_lug in latest_lugs %}
+        <p><a href="{% url 'lug-detail' l_lug.slug %}"><img class="lug-thumb rounded-circle mr-1" src="{{ l_lug.cover_image.url }}">{{ l_lug.name }}</a>
+         in {{ l_lug.city }}</p>
+         {% endfor %}
     </div>
 </div>
 <!-- end side bar-->

@@ -13,16 +13,13 @@ from .forms import LugForm,PostForm, FindLugByCityForm
 from .models import Lug, Post
 from users.models import Profile
 from cities_light.models import City
-# from django.db.models import Max
-from random import randint
 
 
 def lugListView(request):
     lugs = Lug.objects.all().order_by('-date_added')
-    count = Lug.objects.count()
-    random_lug = Lug.objects.all()[randint(0, count - 1)]
+    latest_lugs = lugs[:5]
 
-    context = {'lugs': lugs, 'random_lug': random_lug}
+    context = {'lugs': lugs, 'latest_lugs': latest_lugs}
     return render(request, 'lugs/home.html', context)
 
 
@@ -40,21 +37,28 @@ class LugsByUserListView(ListView):
 def lugDetailView(request, slug):
     lug = get_object_or_404(Lug, slug=slug)
     similar_lugs = Lug.objects.filter(city=lug.city)[:3]
-    # fix show same LUG
-    context = {'lug': lug, 'title': f'About LUG: {lug.name}', 'similar_lugs': similar_lugs}
+
+    context = {
+            'lug': lug,
+            'title': f'About LUG: {lug.name}',
+            'similar_lugs': similar_lugs,
+            }
     return render(request, 'lugs/lug_detail.html', context)
 
 
 def searchLUGsView(request):
     lugs = ''
-    reulst_title = ''
     query = request.GET.get('q')
     if query:
         lugs = Lug.objects.filter(name__icontains=query)
         
         if not lugs:
             messages.warning(request, f'Your search \"{query}\" returned no results.')
-    context = {'lugs': lugs, 'query': query}
+    context = {
+        'lugs': lugs,
+        'query': query,
+        'title': 'search LUGs'
+        }
     return render(request, 'lugs/search_lugs.html', context)
 
 @login_required
@@ -99,7 +103,12 @@ def editLug(request, slug):
                 form = LugForm(request.POST)
     
         form = LugForm(instance=lug)
-        return render(request, 'lugs/edit_lug.html', {'form': form, 'lug': lug, 'title': f'Update LUG {lug.name}'})
+        context = {
+            'form': form,
+            'lug': lug,
+            'title': f'Update LUG: {lug.name}'
+            }
+        return render(request, 'lugs/edit_lug.html', context)
     else:
         messages.warning(request, f'You can edit only LUGs you have created')
         return redirect('lug-detail', slug=lug.slug)
@@ -135,7 +144,6 @@ class LugsByCityListView(ListView): #use try/except
 
     def get_queryset(self):
         city_id = self.kwargs.get('city_id')
-        # city = get_object_or_404(Lug, city_id=self.kwargs.get('city_id'))
         lugs = Lug.objects.filter(city_id=city_id).order_by('-date_added')
         return lugs
 
