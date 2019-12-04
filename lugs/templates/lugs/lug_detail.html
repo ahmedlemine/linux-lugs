@@ -42,17 +42,19 @@
 <!-- End LUG posts -->
 
 <!-- LUGs in same city as currnt LUG -->
-<h2>Other LUGs in {{ lug.city }}:</h2>
+<h3 class="border-top mb-3 mt-3">Other LUGs in <b>{{ lug.city }}</b> :</h3>
 <div class="col-md-6">
 
-{% for lug in similar_lugs %}
+{% for sim_lug in similar_lugs %}
+    {% if sim_lug != lug %}
     <div>
-        <p><a href="{% url 'lug-detail' lug.slug %}">
-            <img class="lug-thumb rounded-circle mr-1" src="{{ lug.cover_image.url }}"><b>{{lug.name }}</b></a>
+        <p><a href="{% url 'lug-detail' sim_lug.slug %}">
+            <img class="lug-thumb rounded-circle mr-1" src="{{ sim_lug.cover_image.url }}"><b>{{sim_lug.name }}</b></a>
             <!-- <small><i class="fa fa-users mr-1 text-muted" aria-hidden="true"></i>{{lug.profile_set.all.count}}</small> -->
         </p>
         
     </div>
+    {% endif%}
 {% endfor %}
 </div>
 <!-- end similar LUGs-->

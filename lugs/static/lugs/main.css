@@ -167,18 +167,11 @@ color: inherit;
   display: block; /* Could also use inline-block */
 }
 
-/* .search-box {
-  display: inline-flex;
-}
-.search-box button {
-  margin-left: 4px;
-}
-
+/* style search box */
 * {
   box-sizing: border-box;
-} */
+}
 
-/* Style the search field */
 form.search-box input[type=text] {
   padding: 10px;
   font-size: 17px;
@@ -188,7 +181,6 @@ form.search-box input[type=text] {
   background: #f1f1f1;
 }
 
-/* Style the submit button */
 form.search-box button {
   float: left;
   width: 20%;
@@ -197,7 +189,7 @@ form.search-box button {
   color: white;
   font-size: 17px;
   border: 1px solid grey;
-  border-left: none; /* Prevent double borders */
+  border-left: none;
   cursor: pointer;
 }
 
@@ -205,7 +197,6 @@ form.search-box button:hover {
   background: #0b7dda;
 }
 
-/* Clear floats */
 form.search-box::after {
   content: "";
   clear: both;
