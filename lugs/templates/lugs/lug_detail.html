@@ -40,6 +40,24 @@
 
 {% endif %}
 <!-- End LUG posts -->
+
+<!-- LUGs in same city as currnt LUG -->
+<h2>Other LUGs in {{ lug.city }}:</h2>
+<div class="col-md-6">
+
+{% for lug in similar_lugs %}
+    <div>
+        <p><a href="{% url 'lug-detail' lug.slug %}">
+            <img class="lug-thumb rounded-circle mr-1" src="{{ lug.cover_image.url }}"><b>{{lug.name }}</b></a>
+            <!-- <small><i class="fa fa-users mr-1 text-muted" aria-hidden="true"></i>{{lug.profile_set.all.count}}</small> -->
+        </p>
+        
+    </div>
+{% endfor %}
+</div>
+<!-- end similar LUGs-->
+
+
 {% endblock content %}
 
 {% block sidebar %}

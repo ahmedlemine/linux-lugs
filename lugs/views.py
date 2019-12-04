@@ -40,11 +40,24 @@ class LugsByUserListView(ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Lug.objects.filter(added_by=user).order_by('-date_added')
 
-class LugDetailView(DetailView):
-    model = Lug
-    context_object_name = 'lug'
+
+def lugDetailView(request, slug):
+    lug = get_object_or_404(Lug, slug=slug)
+    similar_lugs = Lug.objects.filter(city=lug.city)[:3]
+    # fix show same LUG
+    context = {'lug': lug, 'title': f'About LUG: {lug.name}', 'similar_lugs': similar_lugs}
+    return render(request, 'lugs/lug_detail.html', context)
 
 
+# def searchLUGView(request):
+#     query = request.GET.get('q')
+#     if query:
+#         lugs = Lug.objects.filter(name__icontains=query)
+#         reulst_title = f'Results for \"{query}\":'
+#         if not lugs:
+#             messages.warning(request, f'Your search \"{query}\" returned no results.')
+#     context = {'lugs': lugs, 'query': query, 'reulst_title': reulst_title}
+#     return render(request, 'lugs/search_lugs.html', context)
 
 @login_required
 def createLug(request):

@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import (LugDetailView,
-                    LugDeleteView,
+from .views import (LugDeleteView,
                     LugsByUserListView,
                     MyLugsListView,
                     LugsByCityListView,
@@ -12,7 +11,7 @@ urlpatterns = [
     # path('', LugListView.as_view(), name='lugs-home'),
     path('lugs-by/<str:username>/', LugsByUserListView.as_view(), name='lugs-by-user'),
     path('my-lugs/', MyLugsListView.as_view(), name='my-lugs'),
-    path('lug/<str:slug>/', LugDetailView.as_view(), name='lug-detail'),
+    path('lug/<str:slug>/', views.lugDetailView, name='lug-detail'),
     # path('new-lug/', LugCreateView.as_view(), name='lug-create'),
     # path('lug/<slug:slug>/update', LugUpdateView.as_view(), name='lug-update'),
     path('lug/<str:slug>/delete', LugDeleteView.as_view(), name='lug-delete'),
