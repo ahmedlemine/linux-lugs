@@ -8,15 +8,13 @@ from . import views
 
 urlpatterns = [
     path('', views.lugListView, name='lugs-home'),
-    # path('', LugListView.as_view(), name='lugs-home'),
     path('lugs-by/<str:username>/', LugsByUserListView.as_view(), name='lugs-by-user'),
     path('my-lugs/', MyLugsListView.as_view(), name='my-lugs'),
     path('lug/<str:slug>/', views.lugDetailView, name='lug-detail'),
-    # path('new-lug/', LugCreateView.as_view(), name='lug-create'),
-    # path('lug/<slug:slug>/update', LugUpdateView.as_view(), name='lug-update'),
     path('lug/<str:slug>/delete', LugDeleteView.as_view(), name='lug-delete'),
     path('lugs-in-city/<int:city_id>/', LugsByCityListView.as_view(), name='lugs-by-city'),
     path('find-lugs-in-city/', views.findLugByCityView, name='find-lugs-in-city'),
+    path('search-lugs/', views.searchLUGsView, name='search-lugs'),
     path('about/', views.about, name='lugs-about'),
     path('join-lug/<str:slug>/', views.joinLug, name='join-lug'),
     path('leave-lug/<str:slug>/', views.leaveLug, name='leave-lug'),
@@ -28,5 +26,4 @@ urlpatterns = [
     path('lug/delete_post/<int:pk>/', views.deletePost, name='delete-post'),
     path('lug/<str:slug>/posts', views.lugPostsListView, name='lug-posts'),
     path('lug/post/<int:pk>', views.lugPostDetail, name='post-detail'),
-
 ]

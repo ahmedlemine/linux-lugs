@@ -166,3 +166,7 @@ color: inherit;
   margin-bottom: 5em;
   display: block; /* Could also use inline-block */
 }
+
+.search-box {
+  display: inline-flex;
+}

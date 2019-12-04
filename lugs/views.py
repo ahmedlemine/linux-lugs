@@ -21,12 +21,8 @@ def lugListView(request):
     lugs = Lug.objects.all().order_by('-date_added')
     count = Lug.objects.count()
     random_lug = Lug.objects.all()[randint(0, count - 1)]
-    query = request.GET.get('q')
-    if query:
-        lugs = lugs.filter(name__icontains=query)
-        if not lugs:
-            messages.warning(request, f'Your search \"{query}\" returned no results.')
-    context = {'lugs': lugs, 'random_lug': random_lug, 'query': query}
+
+    context = {'lugs': lugs, 'random_lug': random_lug}
     return render(request, 'lugs/home.html', context)
 
 
@@ -49,15 +45,17 @@ def lugDetailView(request, slug):
     return render(request, 'lugs/lug_detail.html', context)
 
 
-# def searchLUGView(request):
-#     query = request.GET.get('q')
-#     if query:
-#         lugs = Lug.objects.filter(name__icontains=query)
-#         reulst_title = f'Results for \"{query}\":'
-#         if not lugs:
-#             messages.warning(request, f'Your search \"{query}\" returned no results.')
-#     context = {'lugs': lugs, 'query': query, 'reulst_title': reulst_title}
-#     return render(request, 'lugs/search_lugs.html', context)
+def searchLUGsView(request):
+    lugs = ''
+    reulst_title = ''
+    query = request.GET.get('q')
+    if query:
+        lugs = Lug.objects.filter(name__icontains=query)
+        
+        if not lugs:
+            messages.warning(request, f'Your search \"{query}\" returned no results.')
+    context = {'lugs': lugs, 'query': query}
+    return render(request, 'lugs/search_lugs.html', context)
 
 @login_required
 def createLug(request):
