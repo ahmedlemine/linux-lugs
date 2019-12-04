@@ -54,11 +54,12 @@
 {% block sidebar %}
 <!-- start side bar-->
 <div class="col-md-4">
-    <form action="/search-lugs" method="GET">
-            <fieldset class="form-group">
-                <input class="form-control form-control-lg" type="text" value="{{ request.GET.q }}" name="q" placeholder="&#128270; Search LUGs by name">
-            </fieldset>
-    </form>
+        <form class="search-box" action="/search-lugs" method="GET">
+                <fieldset class="form-group">
+                    <input type="text" placeholder="Search LUGs by name..." value="{{ request.GET.q }}" name="q">
+                    <button type="submit" ><i class="fa fa-search" aria-hidden="true"></i></button>
+                </fieldset>
+        </form>
        <!-- side box -->
     <div class="content-section">
         <h5>Recently Added</h5>

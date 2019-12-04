@@ -4,13 +4,15 @@
 
 <!-- search box -->
 <div class="row">
-        <form action="" method="GET">
-                <fieldset class="form-group search-box">
+    <div class="col-md-12">
+        <form class="search-box" action="" method="GET">
+                <fieldset class="form-group">
                     <legend>Search LUGs by name</legend>
-                    <input class="form-control form-control-lg"  type="text" value="{{ request.GET.q }}" name="q" placeholder="&#128270; Search LUGs by name">
-                    <input class="btn btn-primary" style="margin-left: 4px;" type="submit" value="Search">
+                    <input type="text" placeholder="Search.." value="{{ request.GET.q }}" name="q">
+                    <button type="submit" ><i class="fa fa-search" aria-hidden="true"></i></button>
                 </fieldset>
         </form>
+    </div>
 </div>
 
 <!-- start LUGs List -->
