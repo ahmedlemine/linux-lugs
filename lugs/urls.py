@@ -26,4 +26,6 @@ urlpatterns = [
     path('lug/delete_post/<int:pk>/', views.deletePost, name='delete-post'),
     path('lug/<str:slug>/posts', views.lugPostsListView, name='lug-posts'),
     path('lug/post/<int:pk>', views.lugPostDetail, name='post-detail'),
+    path('api/lug_list/', views.lug_list, name='api-lug-list'),
+    path('api/city_list/', views.city_list, name='api-city-list'),
 ]

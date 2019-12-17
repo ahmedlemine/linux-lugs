@@ -4,6 +4,7 @@ django-autoslug-iplweb==1.9.4.dev0
 django-cities-light==3.5.0
 django-crispy-forms==1.8.0
 django-imagekit==4.0.2
+djangorestframework==3.11.0
 pilkit==2.0
 Pillow==6.2.1
 progressbar2==3.47.0

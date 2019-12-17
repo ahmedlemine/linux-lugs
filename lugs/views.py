@@ -14,6 +14,13 @@ from .models import Lug, Post
 from users.models import Profile
 from cities_light.models import City
 
+# serializer imports
+from django.http import Http404, HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from lugs.serializers import LugSerializer, CitySerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 
 def lugListView(request):
     lugs = Lug.objects.all().order_by('-date_added')
@@ -289,3 +296,50 @@ def deletePost(request, pk):
 
 def about(request):
     return render(request, 'lugs/about.html', {'title': 'About Linux LUGs'})
+
+
+
+#API endpoints
+
+# def findCity(request):
+    # # city = ''
+    # query = request.GET.get('q', None)
+    # # city = City.objects.filter(name__icontains=query).first()
+    # # return city
+    # # return render(request, 'lugs/find_city.html', {'city': city})
+    # cities = City.objects.filter(name__icontains=query)
+    # if cities:
+    #         data = {
+    #             'c': city.name,
+    #             'r': city.region.name,
+    #             'cn': city.country.name
+    #         }
+    #     return JsonResponse(data)
+    # return render(request, 'lugs/find_city.html', {})
+
+@api_view(['GET'])
+def lug_list(request):
+    lugs = Lug.objects.all()[:100]
+    serializer = LugSerializer(lugs, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def city_list(request):
+
+    if "q" in request.GET:
+        match = request.GET.get("q", "")
+        cities = City.objects.filter(name__icontains=match).order_by("-population")
+    else:
+        cities = City.objects.all()
+
+    serializer = CitySerializer(cities[:100], many=True)
+    return Response(serializer.data)
+
+
+# @api_view(['GET'])
+# def get_city(request):
+#     query = request.GET.get('q', None)
+#     cities = City.objects.filter(display_name__icontains=query)
+#     if query:
+#         serializer = CitySerializer(cities)
+#         return JsonResponse(serializer.data)
