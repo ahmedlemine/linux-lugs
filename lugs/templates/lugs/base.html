@@ -96,10 +96,14 @@
                 </div>
             </div>
         </nav>
-    </header>
+    </header> 
+    
+    
 
     <main role="main" class="container">
+        {% block jumbotron %}  {% endblock jumbotron %}
         <div class="row">
+            
             <div class="col-md-8">
                 {% if messages %}
                     {% for message in messages %}
@@ -113,7 +117,7 @@
                 {% endblock content %}
                 
             </div>
-{% block sidebar %}{% endblock sidebar %}
+                {% block sidebar %}{% endblock sidebar %}
         </div>
         
         <span class="empty-span"></span>

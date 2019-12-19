@@ -1,22 +1,25 @@
 {% extends "lugs/base.html" %}
-{% block content %}
 
-<!-- Jumptron -->
-{% if not query %}
-<div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1>Welcome to Linux LUGs</h1>
-            <h4>An open directory for local Linux User Groups</h4>
-            <p>Find and join a LUG near you, or start your own!</p>
-            <a class="btn btn-success" href="{% url 'lug-create' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add a LUG</a>
-            <a class="btn btn-primary" href="{% url 'find-lugs-in-city' %}"><i class="fa fa-search" aria-hidden="true"></i> Find a Nearby LUG</a>
+{% block jumbotron %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1>Welcome to Linux LUGs</h1>
+                    <h4>An open directory for local Linux User Groups</h4>
+                    <p>Find and join a LUG near you, or start your own!</p>
+                    <a class="btn btn-success" href="{% url 'lug-create' %}"><i class="fa fa-plus" aria-hidden="true"></i> Add a LUG</a>
+                    <a class="btn btn-primary" href="{% url 'find-lugs-in-city' %}"><i class="fa fa-search" aria-hidden="true"></i> Find a Nearby LUG</a>
+                </div>
         </div>
+    </div>
 </div>
-{% endif %}
+{% endblock jumbotron %}
+
+{% block content %}
 
 <!-- start LUGs List -->
 <div class="row">
-
 {% for lug in lugs %}
 <div class="col-md-6">
     <div class="card mb-4 box-shadow">
