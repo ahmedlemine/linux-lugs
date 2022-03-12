@@ -6,7 +6,7 @@ django-crispy-forms==1.8.0
 django-imagekit==4.0.2
 djangorestframework==3.11.0
 pilkit==2.0
-Pillow==6.2.1
+Pillow==9.0.1
 progressbar2==3.47.0
 python-utils==2.3.0
 pytz==2019.3
